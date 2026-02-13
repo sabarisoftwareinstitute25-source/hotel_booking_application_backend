@@ -11,7 +11,7 @@ import java.time.Instant;
 public class UserAccount {
 
     @Id
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 50)
     private String id;
 
     @NotBlank

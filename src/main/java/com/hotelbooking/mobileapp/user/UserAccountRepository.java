@@ -24,5 +24,7 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, String
         @Param("phoneWithoutPlus") String phoneWithoutPlus,
         @Param("phoneWithoutCountry") String phoneWithoutCountry
     );
+
+    Optional<Object> findByEmailIgnoreCase(String email);
 }
 

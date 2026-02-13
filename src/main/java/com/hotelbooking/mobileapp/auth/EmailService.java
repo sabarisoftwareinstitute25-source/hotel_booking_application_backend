@@ -18,8 +18,11 @@ public class EmailService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(toEmail);
         message.setSubject("Password Reset Request");
-        message.setText("Click the link to reset your password:\n" + resetLink +
-                "\n\nThis link expires in 15 minutes.");
+        message.setText(
+                "Click the link to reset your password:\n" +
+                        resetLink +
+                        "\n\nThis link expires in 15 minutes."
+        );
 
         mailSender.send(message);
     }

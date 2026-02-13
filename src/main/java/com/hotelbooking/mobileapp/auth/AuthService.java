@@ -3,65 +3,81 @@ package com.hotelbooking.mobileapp.auth;
 import com.hotelbooking.mobileapp.user.UserAccount;
 import com.hotelbooking.mobileapp.user.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 
 @Service
 public class AuthService {
 
     @Autowired
-    private UserAccountRepository userRepo;
+    private UserAccountRepository userRepository;
 
     @Autowired
-    private PasswordResetTokenRepository tokenRepo;
+    private PasswordResetOtpRepository otpRepository;
 
     @Autowired
-    private EmailService emailService;
+    private JavaMailSender mailSender;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // STEP 1: Forgot Password
-    public String forgotPassword(String email) {
+    // STEP 1–5
+    public void sendForgotPasswordOtp(String email) {
 
-        UserAccount user = userRepo.findByEmail(email)
+        UserAccount user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        PasswordResetToken token = new PasswordResetToken();
-        token.setEmail(email);
+        // Secure OTP
+        SecureRandom random = new SecureRandom();
+        String otp = String.valueOf(100000 + random.nextInt(900000));
 
-        tokenRepo.save(token);
+        PasswordResetOtp otpEntity = new PasswordResetOtp();
+        otpEntity.setEmail(email);
+        otpEntity.setOtp(otp);
+        otpEntity.setExpiryTime(LocalDateTime.now().plusMinutes(5));
+        otpEntity.setUsed(false);
 
-        emailService.sendResetEmail(email, token.getToken());
+        otpRepository.save(otpEntity);
 
-        return "Reset link sent to email.";
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("Password Reset OTP");
+        message.setText("Your OTP is: " + otp + "\nValid for 5 minutes.");
+        mailSender.send(message);
     }
 
-    // STEP 2: Reset Password
-    public String resetPassword(String tokenValue, String newPassword) {
+    // STEP 6
+    public void verifyOtp(String email, String otpInput) {
 
-        PasswordResetToken token = tokenRepo.findByToken(tokenValue)
-                .orElseThrow(() -> new RuntimeException("Invalid token"));
+        PasswordResetOtp otp = otpRepository
+                .findTopByEmailOrderByExpiryTimeDesc(email)
+                .orElseThrow(() -> new RuntimeException("OTP not found"));
 
-        if (token.isUsed()) {
-            throw new RuntimeException("Token already used");
-        }
+        if (otp.isUsed())
+            throw new RuntimeException("OTP already used");
 
-        if (token.getExpiryDate().isBefore(LocalDateTime.now())) {
-            throw new RuntimeException("Token expired");
-        }
+        if (otp.getExpiryTime().isBefore(LocalDateTime.now()))
+            throw new RuntimeException("OTP expired");
 
-        UserAccount user = userRepo.findByEmail(token.getEmail())
+        if (!otp.getOtp().equals(otpInput))
+            throw new RuntimeException("Invalid OTP");
+
+        otp.setUsed(true);
+        otpRepository.save(otp);
+    }
+
+    // STEP 7
+    public void resetPassword(String email, String newPassword) {
+
+        UserAccount user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         user.setPassword(passwordEncoder.encode(newPassword));
-        userRepo.save(user);
-
-        token.setUsed(true);
-        tokenRepo.save(token);
-
-        return "Password successfully reset.";
+        userRepository.save(user);
     }
 }
