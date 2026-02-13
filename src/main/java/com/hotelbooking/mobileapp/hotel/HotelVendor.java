@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Hotel Vendor entity storing comprehensive vendor registration data.
  * This entity stores all information from the 5-step vendor registration form.
  */
-@Entitygit
+@Entity
 @Table(name = "normal_hotels")
 public class HotelVendor {
 
