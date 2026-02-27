@@ -22,28 +22,21 @@ public class Hotel {
     @Column(nullable = false, length = 20)
     private String id;
 
-    @NotBlank
-    @Size(max = 150)
     @Column(nullable = false, length = 150)
     private String name;
 
-    @NotBlank
-    @Size(max = 255)
     @Column(nullable = false, length = 255)
     private String address;
 
-    @NotBlank
-    @Size(max = 100)
+
     @Column(nullable = false, length = 100)
     private String city;
 
-    @NotBlank
-    @Size(max = 100)
+
     @Column(nullable = false, length = 100)
     private String country;
 
-    @Min(1)
-    @Max(5)
+
     @Column(name = "star_rating", nullable = false)
     private Integer starRating;
 

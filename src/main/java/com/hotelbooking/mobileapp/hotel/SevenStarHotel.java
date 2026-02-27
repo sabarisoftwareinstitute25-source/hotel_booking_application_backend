@@ -1,9 +1,6 @@
 package com.hotelbooking.mobileapp.hotel;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -11,7 +8,8 @@ import org.hibernate.type.SqlTypes;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -29,4 +27,145 @@ public class SevenStarHotel {
 
     @Column(name = "hotel_id", nullable = false, length = 16)
     private String hotelId;
+
+    // Step 1
+    @Column(nullable = false)
+    private String palaceName;
+
+    private String sovereignClassification;
+    private String heritageStatus;
+    private String ownershipCategory;
+    private Integer yearOfOrigin;
+    private Integer totalGuestCapacity;
+    private String historicSignificance;
+    private String globalPrestigeRank;
+    private String estateSize;
+    private String staffToGuestRatio;
+
+    // Step 2
+    @Column(nullable = false)
+    private String legalHoldingEntity;
+
+    @Column(nullable = false)
+    private String sovereignOwner;
+
+    private String chiefExecutiveCustodian;
+    private String protocolAffairsDirector;
+    private String headOfGuestExperience;
+    private String eliteGuestLiaisonOfficer;
+    private String directCommandContactNumber;
+    private String encryptedCommunicationLine;
+    private String executiveEmailChannel;
+    private String officialPortfolio;
+
+    // Global Access
+    @Column(nullable = false)
+    private String estateAddress;
+
+    @Column(nullable = false)
+    private String city;
+
+    private String state;
+    private String country;
+    private String postalCode;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private List<String> exclusiveArrivalInfrastructure = new ArrayList<>();
+
+    private String distanceFromInternationalHub;
+
+    // Step 3
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private List<String> selectRoyalResidenceTypes = new ArrayList<>();
+
+    private String pricingIntelligenceEngine;
+
+    // Step 4
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private List<String> inResidenceIntelligenceSystems = new ArrayList<>();
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private List<String> signatureRoyalAmenities = new ArrayList<>();
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private List<String> arrivalCeremonialProtocols = new ArrayList<>();
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private List<String> gastronomicOfferings = new ArrayList<>();
+
+    private String royalBanquetCourtSeatingCapacity;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private List<String> wellness = new ArrayList<>();
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private List<String> privileges = new ArrayList<>();
+
+    // Step 6
+    private String registryId;
+    private String securityCertificationLevel;
+    private Boolean disasterClearance;
+    private Boolean environmentalSovereignCertification;
+    private String cyberIntelligenceProtectionLevel;
+    private String crisisCommandSystem;
+
+    @Column(nullable = false)
+    private String treasuryAccountName;
+
+    @Column(nullable = false)
+    private String globalBankInstitution;
+
+    private String accountNumber;
+    private String swift;
+    private String settlementCurrency;
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private List<String> alternativeSettlementOptions = new ArrayList<>();
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private List<String> integrationCapabilities = new ArrayList<>();
+
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private Map<String, Map<String, Object>> uploadedFiles;
+
+    @Column(nullable = false)
+    private Boolean declarationAccepted = false;
+
+    private LocalDate declarationDate;
+    private String registrationStatus = "PENDING";
+
+    @Column(nullable = false, updatable = false)
+    private Instant createdAt;
+
+    private Instant updatedAt;
+
+    private String authorizedAuthority;
+    private String title;
+    private LocalDate signedDate;
+
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String signatureImage;
+
+    // Auto timestamp handling
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = Instant.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = Instant.now();
+    }
 }

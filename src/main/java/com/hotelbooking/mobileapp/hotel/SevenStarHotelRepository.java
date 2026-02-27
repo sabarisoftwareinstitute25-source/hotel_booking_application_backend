@@ -1,4 +1,14 @@
 package com.hotelbooking.mobileapp.hotel;
 
-public interface SevenStarHotelRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface SevenStarHotelRepository extends JpaRepository<SevenStarHotel, String> {
+
+    Optional<SevenStarHotel> findByHotelId(String hotelId);
+
+    Optional<SevenStarHotel> findByVendorId(String vendorId);
 }

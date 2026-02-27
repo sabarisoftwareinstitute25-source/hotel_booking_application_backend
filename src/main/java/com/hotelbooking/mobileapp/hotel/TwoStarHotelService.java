@@ -4,17 +4,15 @@ import java.util.List;
 
 public interface TwoStarHotelService {
 
-    TwoStarHotel saveHotel(TwoStarHotel hotel);
+    TwoStarHotel registerHotel(TwoStarHotel hotel);
 
-    TwoStarHotel updateHotel(String registrationId, TwoStarHotel hotel);
-
-    TwoStarHotel getByRegistrationId(String registrationId);
-
-    TwoStarHotel getByHotelId(String hotelId);
-
-    List<TwoStarHotel> getByVendorId(String vendorId);
+    TwoStarHotel getById(String registrationId);
 
     List<TwoStarHotel> getAllHotels();
+
+    List<TwoStarHotel> getByVendor(String vendorId);
+
+    TwoStarHotel updateHotel(String registrationId, TwoStarHotel hotel);
 
     void deleteHotel(String registrationId);
 }

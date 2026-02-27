@@ -1,59 +1,50 @@
 package com.hotelbooking.mobileapp.hotel;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class TwoStarHotelServiceImpl implements TwoStarHotelService {
 
-    private final TwoStarHotelRepo repo;
+    private final TwoStarHotelRepository repository;
 
-    public TwoStarHotelServiceImpl(TwoStarHotelRepo repo) {
-        this.repo = repo;
+    @Override
+    public TwoStarHotel registerHotel(TwoStarHotel hotel) {
+        return repository.save(hotel);
     }
 
     @Override
-    public TwoStarHotel saveHotel(TwoStarHotel hotel) {
-        return repo.save(hotel);
-    }
-
-    @Override
-    public TwoStarHotel updateHotel(String registrationId, TwoStarHotel hotel) {
-        TwoStarHotel existing = getByRegistrationId(registrationId);
-
-        hotel.setRegistrationId(existing.getRegistrationId());
-        hotel.setCreatedAt(existing.getCreatedAt());
-
-        return repo.save(hotel);
-    }
-
-    @Override
-    public TwoStarHotel getByRegistrationId(String registrationId) {
-        return repo.findById(registrationId)
-                .orElseThrow(() -> new RuntimeException("Hotel not found"));
-    }
-
-    @Override
-    public TwoStarHotel getByHotelId(String hotelId) {
-        return repo.findByHotelId(hotelId)
-                .orElseThrow(() -> new RuntimeException("Hotel not found"));
-    }
-
-    @Override
-    public List<TwoStarHotel> getByVendorId(String vendorId) {
-        return repo.findByVendorId(vendorId);
+    public TwoStarHotel getById(String registrationId) {
+        return repository.findById(registrationId)
+                .orElseThrow(() -> new RuntimeException("Two Star Hotel not found"));
     }
 
     @Override
     public List<TwoStarHotel> getAllHotels() {
-        return repo.findAll();
+        return repository.findAll();
+    }
+
+    @Override
+    public List<TwoStarHotel> getByVendor(String vendorId) {
+        return repository.findByVendorId(vendorId);
+    }
+
+    @Override
+    public TwoStarHotel updateHotel(String registrationId, TwoStarHotel hotel) {
+
+        TwoStarHotel existing = getById(registrationId);
+
+        hotel.setRegistrationId(existing.getRegistrationId());
+        hotel.setCreatedAt(existing.getCreatedAt());
+
+        return repository.save(hotel);
     }
 
     @Override
     public void deleteHotel(String registrationId) {
-        repo.deleteById(registrationId);
+        repository.deleteById(registrationId);
     }
 }

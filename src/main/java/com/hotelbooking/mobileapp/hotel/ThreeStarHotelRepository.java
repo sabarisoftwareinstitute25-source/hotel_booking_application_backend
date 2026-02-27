@@ -7,4 +7,8 @@ public interface ThreeStarHotelRepository extends JpaRepository<ThreeStarHotel, 
 
     List<ThreeStarHotel> findByVendorId(String vendorId);
 
+    List<ThreeStarHotel> findByRegistrationStatus(String registrationStatus);
+
+    List<ThreeStarHotel> findByCity(String city);
+
 }

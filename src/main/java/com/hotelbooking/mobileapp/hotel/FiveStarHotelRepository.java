@@ -7,4 +7,7 @@ public interface FiveStarHotelRepository extends JpaRepository<FiveStarHotel, St
 
     List<FiveStarHotel> findByVendorId(String vendorId);
 
+    List<FiveStarHotel> findByRegistrationStatus(String status);
+
+    List<FiveStarHotel> findByCity(String city);
 }
