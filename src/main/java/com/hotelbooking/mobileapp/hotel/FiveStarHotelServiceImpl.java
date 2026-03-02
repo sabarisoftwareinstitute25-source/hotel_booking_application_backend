@@ -1,34 +1,34 @@
 package com.hotelbooking.mobileapp.hotel;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class FiveStarHotelServiceImpl implements FiveStarHotelService {
 
-    private final FiveStarHotelRepository repository;
+    @Autowired
+    private FiveStarHotelRepository repository;
 
     @Override
-    public FiveStarHotel registerHotel(FiveStarHotel hotel) {
+    public FiveStarHotel save(FiveStarHotel hotel) {
         return repository.save(hotel);
     }
 
     @Override
-    public FiveStarHotel getById(String registrationId) {
-        return repository.findById(registrationId)
-                .orElseThrow(() -> new RuntimeException("Five Star Hotel not found"));
-    }
-
-    @Override
-    public List<FiveStarHotel> getAllHotels() {
+    public List<FiveStarHotel> getAll() {
         return repository.findAll();
     }
 
     @Override
-    public List<FiveStarHotel> getByVendor(String vendorId) {
+    public Optional<FiveStarHotel> getById(String registrationId) {
+        return repository.findById(registrationId);
+    }
+
+    @Override
+    public List<FiveStarHotel> getByVendorId(String vendorId) {
         return repository.findByVendorId(vendorId);
     }
 
@@ -38,15 +38,13 @@ public class FiveStarHotelServiceImpl implements FiveStarHotelService {
     }
 
     @Override
-    public FiveStarHotel updateHotel(String registrationId, FiveStarHotel hotel) {
-        FiveStarHotel existing = getById(registrationId);
-        hotel.setRegistrationId(existing.getRegistrationId());
-        hotel.setCreatedAt(existing.getCreatedAt());
+    public FiveStarHotel update(String registrationId, FiveStarHotel hotel) {
+        hotel.setRegistrationId(registrationId);
         return repository.save(hotel);
     }
 
     @Override
-    public void deleteHotel(String registrationId) {
+    public void delete(String registrationId) {
         repository.deleteById(registrationId);
     }
 }

@@ -25,9 +25,6 @@ public class SevenStarHotel {
     @Column(name = "vendor_id", length = 16)
     private String vendorId;
 
-    @Column(name = "hotel_id", nullable = false, length = 16)
-    private String hotelId;
-
     // Step 1
     @Column(nullable = false)
     private String palaceName;

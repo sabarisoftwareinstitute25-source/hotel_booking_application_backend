@@ -1,6 +1,9 @@
 package com.hotelbooking.mobileapp.hotel;
 
+import com.hotelbooking.mobileapp.exception.EmailAlreadyExistsException;
+import com.hotelbooking.mobileapp.util.IdGeneratorService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,18 +12,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VendorServiceImp implements VendorService {
 
-    private final VendorRepository vendorRepository;
+    @Autowired
+    private VendorRepository vendorRepository;
+
+    @Autowired
+    private IdGeneratorService idGeneratorService;
+
+
 
     @Override
     public Vendor createVendor(Vendor vendor) {
 
-        if (vendorRepository.existsByEmail(vendor.getEmail())) {
-            throw new RuntimeException("Email already exists");
-        }
-
-        if (vendorRepository.existsByPhone(vendor.getPhone())) {
-            throw new RuntimeException("Phone already exists");
-        }
+        String vendorId = idGeneratorService.generateVendorRegistrationId();
+        vendor.setVendorId(vendorId);
 
         return vendorRepository.save(vendor);
     }
@@ -54,4 +58,5 @@ public class VendorServiceImp implements VendorService {
     public void deleteVendor(String vendorId) {
         vendorRepository.deleteById(vendorId);
     }
+
 }

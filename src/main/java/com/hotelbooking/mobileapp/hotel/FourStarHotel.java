@@ -26,8 +26,6 @@ public class FourStarHotel {
     @Column(name = "vendor_id", length = 20)
     private String vendorId;
 
-    @Column(name = "hotel_id", nullable = false, length = 20)
-    private String hotelId;
 
     @Column(name = "property_type", nullable = false, length = 50)
     private String propertyType;

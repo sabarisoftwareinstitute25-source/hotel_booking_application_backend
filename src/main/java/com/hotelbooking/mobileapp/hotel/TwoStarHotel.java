@@ -8,6 +8,7 @@ import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,7 +18,6 @@ import java.util.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "two_star_hotels")
 public class TwoStarHotel {
@@ -26,11 +26,9 @@ public class TwoStarHotel {
     @Column(nullable = false, length = 20)
     private String registrationId;
 
-    @Column(name = "vendor_id", length = 20)
-    private String vendorId;
-
-    @Column(name = "hotel_id", nullable = false, length = 20)
-    private String hotelId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id")
+    private Vendor vendor;
 
     // Step 1: Property Info
     @NotBlank
@@ -84,7 +82,6 @@ public class TwoStarHotel {
     @Column(length = 150)
     private String addressLine2;
 
-    @Column(nullable = false)
     private Boolean isPrimary = true;
 
     @Column(length = 50)
@@ -106,15 +103,15 @@ public class TwoStarHotel {
 
     private Boolean extraBedAvailable;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "room_details", columnDefinition = "jsonb")
-    private Map<String, Map<String, Object>> roomDetails = new HashMap<>();
+//    @JdbcTypeCode(SqlTypes.JSON)
+//    @Column(name = "room_details", columnDefinition = "jsonb")
+//    private Map<String, Map<String, Object>> roomDetails = new HashMap<>();
 
     @Column(length = 20)
-    private String minTariff;
+    private BigDecimal minPricePerDay;
 
     @Column(length = 20)
-    private String maxTariff;
+    private BigDecimal maxPricePerDay;
 
     // Step 5: Amenities
     @JdbcTypeCode(SqlTypes.JSON)
@@ -131,7 +128,7 @@ public class TwoStarHotel {
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "guest_service", columnDefinition = "jsonb")
-    private Map<String, Boolean> guestService = new HashMap<>();
+    private List<String> guestService = new ArrayList<>();
 
     // Step 6: Check-in
     @Column(nullable = false)
@@ -198,7 +195,6 @@ public class TwoStarHotel {
         if (registrationStatus == null) registrationStatus = "PENDING";
         if (declarationAccepted == null) declarationAccepted = false;
     }
-
     @PreUpdate
     protected void onUpdate() {
         updatedAt = Instant.now();

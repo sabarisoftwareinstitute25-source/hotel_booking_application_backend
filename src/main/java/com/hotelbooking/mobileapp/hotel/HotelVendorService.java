@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface HotelVendorService {
 
+    HotelVendor saveHotelVendor(HotelVendor request);
+
     HotelVendor registerHotel(HotelVendor hotelVendor);
 
     HotelVendor getByRegistrationId(String registrationId);

@@ -2,6 +2,7 @@ package com.hotelbooking.mobileapp.hotel;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Instant;
 
@@ -13,6 +14,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "vendor_login")
 public class Vendor {
+
 
     @Id
     @Column(name = "vendor_id", nullable = false, length = 14)

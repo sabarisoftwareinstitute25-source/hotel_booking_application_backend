@@ -1,20 +1,21 @@
 package com.hotelbooking.mobileapp.hotel;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FiveStarHotelService {
 
-    FiveStarHotel registerHotel(FiveStarHotel hotel);
+    FiveStarHotel save(FiveStarHotel hotel);
 
-    FiveStarHotel getById(String registrationId);
+    List<FiveStarHotel> getAll();
 
-    List<FiveStarHotel> getAllHotels();
+    Optional<FiveStarHotel> getById(String registrationId);
 
-    List<FiveStarHotel> getByVendor(String vendorId);
+    List<FiveStarHotel> getByVendorId(String vendorId);
 
     List<FiveStarHotel> getByStatus(String status);
 
-    FiveStarHotel updateHotel(String registrationId, FiveStarHotel hotel);
+    FiveStarHotel update(String registrationId, FiveStarHotel hotel);
 
-    void deleteHotel(String registrationId);
+    void delete(String registrationId);
 }

@@ -1,5 +1,4 @@
 package com.hotelbooking.mobileapp.user;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,11 +12,7 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, String
     boolean existsByEmail(String email);
     Optional<UserAccount> findByPhone(String phone);
     boolean existsByPhone(String phone);
-    
-    /**
-     * Find user by phone with normalization handling.
-     * Tries exact match first, then tries variations.
-     */
+
     @Query("SELECT u FROM UserAccount u WHERE u.phone = :phone OR u.phone = :phoneWithoutPlus OR u.phone = :phoneWithoutCountry")
     List<UserAccount> findByPhoneVariations(
         @Param("phone") String phone,

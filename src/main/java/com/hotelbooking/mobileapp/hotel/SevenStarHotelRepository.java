@@ -8,7 +8,5 @@ import java.util.Optional;
 @Repository
 public interface SevenStarHotelRepository extends JpaRepository<SevenStarHotel, String> {
 
-    Optional<SevenStarHotel> findByHotelId(String hotelId);
-
     Optional<SevenStarHotel> findByVendorId(String vendorId);
 }

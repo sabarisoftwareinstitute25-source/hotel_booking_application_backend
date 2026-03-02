@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface HotelVendorRepository extends JpaRepository<HotelVendor, String> {
 
-    List<HotelVendor> findByVendorId(String vendorId);
+    List<HotelVendor> findByVendor_VendorId(String vendorId);
 
     List<HotelVendor> findByRegistrationStatus(String status);
 }

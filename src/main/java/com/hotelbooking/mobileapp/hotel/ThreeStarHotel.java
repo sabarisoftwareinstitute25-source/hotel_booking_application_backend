@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -27,11 +28,9 @@ public class ThreeStarHotel {
     @Column(nullable = false, length = 16)
     private String registrationId;
 
-    @Column(name = "vendor_id", length = 16)
-    private String vendorId;
-
-    @Column(name = "hotel_id", nullable = false, length = 16)
-    private String hotelId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id")
+    private Vendor vendor;
 
     // Property Type
     @NotBlank
@@ -94,7 +93,6 @@ public class ThreeStarHotel {
     @Column(name = "address_line2", length = 250)
     private String addressLine2;
 
-    @Column(nullable = false)
     private Boolean isPrimary = true;
 
     @NotBlank
@@ -125,6 +123,27 @@ public class ThreeStarHotel {
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "room_details", columnDefinition = "jsonb")
     private Map<String, Map<String, Object>> roomDetails = new HashMap<>();
+
+    //====Standard=====
+    private Integer standardNumberOfRooms;
+    private String standardMaxOccupancy;
+    private Boolean standardAc;
+    private String standardBedType;
+    private Integer standardPricePerDay;
+
+    //======Deluxe========
+    private Integer deluxeNumberOfRooms;
+    private String deluxeMaxOccupancy;
+    private Boolean deluxeAc;
+    private String deluxeBedType;
+    private Integer deluxePricePerDay;
+
+    //======Suite======
+    private Integer suiteNumberOfRooms;
+    private String suiteMaxOccupancy;
+    private Boolean suiteAc;
+    private String suiteBedType;
+    private Integer suitePricePerDay;
 
     // Amenities
     @JdbcTypeCode(SqlTypes.JSON)

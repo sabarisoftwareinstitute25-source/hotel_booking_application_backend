@@ -14,8 +14,8 @@ public class ThreeStarHotelController {
     private final ThreeStarHotelService service;
 
     @PostMapping
-    public ResponseEntity<ThreeStarHotel> register(@RequestBody ThreeStarHotel hotel) {
-        return ResponseEntity.ok(service.registerHotel(hotel));
+    public ResponseEntity<ThreeStarHotel> register(@RequestBody ThreeStarHotel request) {
+        return ResponseEntity.ok(service.registerHotel(request));
     }
 
     @GetMapping("/{registrationId}")

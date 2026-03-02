@@ -13,7 +13,6 @@ import java.util.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "normal_hotels")
 public class HotelVendor {
@@ -22,11 +21,9 @@ public class HotelVendor {
     @Column(nullable = false, length = 16)
     private String registrationId;
 
-    @Column(name = "vendor_id", length = 16)
-    private String vendorId;
-
-    @Column(name = "hotel_id", nullable = false, length = 16)
-    private String hotelId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id")
+    private Vendor vendor;
 
     // Property
     @NotBlank

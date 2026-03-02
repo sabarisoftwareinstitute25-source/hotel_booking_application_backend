@@ -26,10 +26,8 @@ public class FiveStarHotel {
     @Column(name = "vendor_id", length = 20)
     private String vendorId;
 
-    @Column(name = "hotel_id", nullable = false, length = 20)
-    private String hotelId;
 
-    // 1. Hotel Info
+    // Hotel Info
     @Column(name = "hotel_name", nullable = false, length = 150)
     private String hotelName;
 
@@ -83,11 +81,11 @@ public class FiveStarHotel {
     @Column(length = 200)
     private String website;
 
+    // JSON Fields
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "person_photo_info", columnDefinition = "jsonb")
     private List<String> personPhotoInfo = new ArrayList<>();
 
-    // Room Configuration
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "selected_room_types", columnDefinition = "jsonb")
     private List<String> selectedRoomTypes = new ArrayList<>();
@@ -99,7 +97,6 @@ public class FiveStarHotel {
     @Column(name = "room_details", columnDefinition = "jsonb")
     private Map<String, Map<String, Object>> roomDetails;
 
-    // Amenities
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "room_amenities", columnDefinition = "jsonb")
     private List<String> roomAmenities = new ArrayList<>();
@@ -171,22 +168,32 @@ public class FiveStarHotel {
     private LocalDate declarationDate;
 
     @Column(length = 20)
-    private String registrationStatus = "PENDING";
+    private String registrationStatus;
 
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
     private Instant updatedAt;
+
     private LocalDate signedDate;
 
     @Lob
     @Column(columnDefinition = "TEXT")
     private String signatureImage;
 
+    // Lifecycle Hooks
     @PrePersist
     protected void onCreate() {
         this.createdAt = Instant.now();
         this.updatedAt = Instant.now();
+
+        if (this.registrationStatus == null) {
+            this.registrationStatus = "PENDING";
+        }
+
+        if (this.declarationAccepted == null) {
+            this.declarationAccepted = false;
+        }
     }
 
     @PreUpdate

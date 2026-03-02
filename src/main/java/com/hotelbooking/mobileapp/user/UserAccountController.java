@@ -24,7 +24,7 @@ public class UserAccountController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserAccount user) {
 
-        if (!user.getPassword().equals(user.getConfirmPassword())) {
+        if (!user.getPassword().equals(user.getPassword())) {
             return ResponseEntity.badRequest()
                     .body("Passwords do not match");
         }
@@ -36,7 +36,7 @@ public class UserAccountController {
 
         user.setId(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setConfirmPassword(null);
+        user.setPassword(null);
 
         userRepo.save(user);
 

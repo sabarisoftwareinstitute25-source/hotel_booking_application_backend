@@ -5,9 +5,8 @@ import java.util.List;
 
 public interface TwoStarHotelRepository extends JpaRepository<TwoStarHotel, String> {
 
-    List<TwoStarHotel> findByVendorId(String vendorId);
+    List<TwoStarHotel> findByVendor_VendorId(String vendorId);
 
     List<TwoStarHotel> findByRegistrationStatus(String registrationStatus);
 
-    List<TwoStarHotel> findByCity(String city);
 }

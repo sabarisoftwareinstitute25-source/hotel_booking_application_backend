@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface ThreeStarHotelService {
 
-    ThreeStarHotel registerHotel(ThreeStarHotel hotel);
+    ThreeStarHotel registerHotel(ThreeStarHotel request);
 
     ThreeStarHotel getById(String registrationId);
 

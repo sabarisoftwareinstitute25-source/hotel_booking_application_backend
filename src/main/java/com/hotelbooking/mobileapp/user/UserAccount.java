@@ -3,9 +3,13 @@ package com.hotelbooking.mobileapp.user;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Instant;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "user_account")
 public class UserAccount {
@@ -50,9 +54,6 @@ public class UserAccount {
     @Column(nullable = false)
     private String password;
 
-    @Transient
-    private String confirmPassword;
-
     @Column(nullable = false)
     private Boolean termsAccepted = false;
 
@@ -85,97 +86,4 @@ public class UserAccount {
         this.createdAt = Instant.now();
     }
 
-    // ===== Getters and Setters =====
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
-    }
-
-    public Boolean getTermsAccepted() {
-        return termsAccepted;
-    }
-
-    public void setTermsAccepted(Boolean termsAccepted) {
-        this.termsAccepted = termsAccepted;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
 }
