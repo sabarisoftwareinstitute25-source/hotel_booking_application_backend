@@ -1,7 +1,6 @@
 package com.hotelbooking.mobileapp.auth;
 
 import com.hotelbooking.mobileapp.user.UserAccountService;
-import com.hotelbooking.mobileapp.user.VerifyOtpResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.slf4j.Logger;
@@ -47,36 +46,6 @@ public class AuthController {
         Map<String, String> response = new HashMap<>();
         response.put("message", "OTP verified successfully");
         return ResponseEntity.ok(response);
-    }
-
-    // ========================
-    // PHONE OTP ENDPOINTS
-    // ========================
-
-    @PostMapping("/verify-phone-otp")
-    public ResponseEntity<VerifyOtpResponse> verifyPhoneOtp(@Valid @RequestBody PhoneVerifyOtpRequest request) {
-        try {
-            String phone = request.getPhone();
-            String otp = request.getOtp();
-
-            if (phone == null || otp == null) {
-                return ResponseEntity.badRequest()
-                        .body(new VerifyOtpResponse(false, "Phone and OTP are required", false));
-            }
-
-            com.hotelbooking.mobileapp.auth.Otp verifiedOtp = otpService.verifyOtpInternal(phone, otp);
-
-            if (verifiedOtp != null) {
-                String name = verifiedOtp.getName();
-                return ResponseEntity.ok(new VerifyOtpResponse(true, "OTP verified successfully", true, name));
-            } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                        .body(new VerifyOtpResponse(false, "Invalid or expired OTP", false));
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new VerifyOtpResponse(false, "Failed to verify OTP: " + e.getMessage(), false));
-        }
     }
 
     // ========================

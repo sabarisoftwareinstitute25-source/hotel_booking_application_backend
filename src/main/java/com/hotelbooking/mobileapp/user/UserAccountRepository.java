@@ -21,5 +21,6 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, String
     );
 
     Optional<Object> findByEmailIgnoreCase(String email);
+    Optional<UserAccount> findByMobile(String mobile);
 }
 

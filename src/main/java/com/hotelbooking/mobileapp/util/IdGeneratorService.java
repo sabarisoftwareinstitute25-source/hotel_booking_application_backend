@@ -55,7 +55,7 @@ public class IdGeneratorService {
         Pattern pattern = Pattern.compile("^EIH(\\d{4})C(\\d{2})(\\d{6})$");
         
         for (UserAccount user : allUsers) {
-            String userId = user.getId();
+            String userId = user.getUserId();
             if (userId != null && userId.startsWith("EIH")) {
                 Matcher matcher = pattern.matcher(userId);
                 if (matcher.matches()) {

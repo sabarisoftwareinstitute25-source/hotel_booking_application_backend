@@ -61,9 +61,9 @@ public class OtpService {
             
             // Determine OTP ID: Use UserAccount ID if user exists, otherwise use phone-based ID
             String otpId;
-            if (user != null && user.getId() != null) {
+            if (user != null && user.getUserId() != null) {
                 // Existing user: OTP ID = UserAccount ID
-                otpId = user.getId();
+                otpId = user.getUserId();
                 logger.info("User exists - OTP ID will be UserAccount ID: {}", otpId);
             } else {
                 // New user: Use phone as ID (or generate one)
@@ -73,9 +73,9 @@ public class OtpService {
             
             // Find existing OTP by ID (for existing users) or by phone (for new users)
             Optional<Otp> existingOtpOpt = Optional.empty();
-            if (user != null && user.getId() != null) {
+            if (user != null && user.getUserId() != null) {
                 // Try to find by user ID first
-                existingOtpOpt = otpRepository.findById(user.getId());
+                existingOtpOpt = otpRepository.findById(user.getUserId());
             }
             if (existingOtpOpt.isEmpty()) {
                 // Fallback: find by phone

@@ -3,20 +3,20 @@ package com.hotelbooking.mobileapp.user;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "user_account")
 public class UserAccount {
 
     @Id
     @Column(nullable = false, length = 50)
-    private String id;
+    private String userId;
 
     @NotBlank
     @Size(max = 100)
@@ -30,7 +30,7 @@ public class UserAccount {
 
     @Size(max = 20)
     @Column(length = 20, unique = true)
-    private String phone;
+    private String mobile;
 
     private String address;
 
@@ -60,24 +60,7 @@ public class UserAccount {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
-    // ===== Constructors =====
-
-    public UserAccount() {
-    }
-
-    public UserAccount(String id, String fullName, String email, String address,
-                       String city, String state, String country,
-                       String password, Boolean termsAccepted) {
-        this.id = id;
-        this.fullName = fullName;
-        this.email = email;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.country = country;
-        this.password = password;
-        this.termsAccepted = termsAccepted;
-    }
+    private boolean active;
 
     // ===== Automatically set createdAt =====
 
