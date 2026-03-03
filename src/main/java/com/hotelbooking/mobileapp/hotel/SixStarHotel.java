@@ -1,5 +1,8 @@
 package com.hotelbooking.mobileapp.hotel;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hotelbooking.mobileapp.util.BeanUtil;
+import com.hotelbooking.mobileapp.util.IdGeneratorService;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +18,7 @@ import java.util.Map;
 
 @Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "six_star_hotels")
 public class SixStarHotel {
@@ -23,8 +27,9 @@ public class SixStarHotel {
     @Column(nullable = false, length = 20)
     private String registrationId;
 
-    @Column(name = "vendor_id", length = 20)
-    private String vendorId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id")
+    private Vendor vendor;
 
     @Column(name = "hotel_id", nullable = false, length = 20)
     private String hotelId;
@@ -214,11 +219,21 @@ public class SixStarHotel {
     private String signatureImage;
 
     @PrePersist
-    protected void onCreate() {
-        this.createdAt = Instant.now();
-        this.updatedAt = Instant.now();
-        if (this.registrationStatus == null) {
-            this.registrationStatus = "PENDING";
+    protected void generateId() {
+
+        if (this.registrationId == null || this.registrationId.isBlank()) {
+
+            List<String> existingIds =
+                    BeanUtil.getBean(SixStarHotelRepository.class)
+                            .findAllRegistrationIds();
+
+            this.registrationId =
+                    BeanUtil.getBean(IdGeneratorService.class)
+                            .generateMonthlyId("SH6", 4, existingIds);
+        }
+
+        if (this.createdAt == null) {
+            this.createdAt = Instant.now();
         }
     }
 

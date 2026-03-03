@@ -1,20 +1,37 @@
 package com.hotelbooking.mobileapp.hotel;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
+import java.util.Optional;
 
-public interface TwoStarHotelService {
+@Service
+public class TwoStarHotelService {
 
-    TwoStarHotel saveHotelVendor(TwoStarHotel request);
+    private final TwoStarHotelRepository repository;
 
-    TwoStarHotel registerHotel(TwoStarHotel twoStarHotel);
+    public TwoStarHotelService(TwoStarHotelRepository repository) {
+        this.repository = repository;
+    }
 
-    TwoStarHotel getByRegistrationId(String registrationId);
+    // Save Hotel
+    public TwoStarHotel saveHotel(TwoStarHotel hotel) {
+        return repository.save(hotel);
+    }
 
-    List<TwoStarHotel> getAllHotels();
+    // Get All Hotels
+    public List<TwoStarHotel> getAllHotels() {
+        return repository.findAll();
+    }
 
-    List<TwoStarHotel> getByVendor(String vendorId);
+    // Get By ID
+    public Optional<TwoStarHotel> getHotelById(String registrationId) {
+        return repository.findById(registrationId);
+    }
 
-    TwoStarHotel updateHotel(String registrationId, TwoStarHotel twoStarHotel);
-
-    void deleteHotel(String registrationId);
+    // Delete
+    public void deleteHotel(String registrationId) {
+        repository.deleteById(registrationId);
+    }
 }

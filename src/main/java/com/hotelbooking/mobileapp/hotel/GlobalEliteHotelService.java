@@ -1,16 +1,30 @@
 package com.hotelbooking.mobileapp.hotel;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-public interface GlobalEliteHotelService {
+@Service
+@RequiredArgsConstructor
+public class GlobalEliteHotelService {
 
-    GlobalEliteHotel create(GlobalEliteHotel hotel);
+    private final GlobalEliteHotelRepository repository;
 
-    GlobalEliteHotel getByRegistrationId(String registrationId);
+    public GlobalEliteHotel saveHotel(GlobalEliteHotel hotel) {
+        return repository.save(hotel);
+    }
 
-    List<GlobalEliteHotel> getAll();
+    public List<GlobalEliteHotel> getAllHotels() {
+        return repository.findAll();
+    }
 
-    GlobalEliteHotel update(String registrationId, GlobalEliteHotel hotel);
+    public GlobalEliteHotel getHotelById(String registrationId) {
+        return repository.findById(registrationId)
+                .orElseThrow(() -> new RuntimeException("Hotel not found"));
+    }
 
-    void delete(String registrationId);
+    public void deleteHotel(String registrationId) {
+        repository.deleteById(registrationId);
+    }
 }

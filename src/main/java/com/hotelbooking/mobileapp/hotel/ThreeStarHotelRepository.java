@@ -1,13 +1,14 @@
 package com.hotelbooking.mobileapp.hotel;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
+@Repository
 public interface ThreeStarHotelRepository extends JpaRepository<ThreeStarHotel, String> {
 
-    List<ThreeStarHotel> findByVendor_VendorId(String vendorId);
-
-    List<ThreeStarHotel> findByRegistrationStatus(String registrationStatus);
-
-
+    @Query("SELECT t.registrationId FROM ThreeStarHotel t")
+    List<String> findAllRegistrationIds();
 }

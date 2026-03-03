@@ -202,5 +202,36 @@ public class IdGeneratorService {
         String sequenceStr = String.format("%04d", nextSequence);
         return prefix + sequenceStr;
     }
+
+    public synchronized String generateMonthlyId(
+            String prefix,
+            int sequenceLength,
+            List<String> existingIds) {
+
+        YearMonth currentYearMonth = YearMonth.now();
+        String yearMonth = currentYearMonth.format(DateTimeFormatter.ofPattern("yyyyMM"));
+
+        String finalPrefix = prefix + yearMonth;
+
+        int maxSequence = 0;
+
+        for (String id : existingIds) {
+            if (id != null && id.startsWith(finalPrefix)) {
+                try {
+                    String seqStr = id.substring(finalPrefix.length());
+                    int seq = Integer.parseInt(seqStr);
+                    if (seq > maxSequence) {
+                        maxSequence = seq;
+                    }
+                } catch (Exception ignored) {}
+            }
+        }
+
+        int nextSequence = maxSequence + 1;
+
+        String sequenceStr = String.format("%0" + sequenceLength + "d", nextSequence);
+
+        return finalPrefix + sequenceStr;
+    }
 }
 

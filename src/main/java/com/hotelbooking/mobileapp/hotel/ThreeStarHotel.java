@@ -1,5 +1,8 @@
 package com.hotelbooking.mobileapp.hotel;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hotelbooking.mobileapp.util.BeanUtil;
+import com.hotelbooking.mobileapp.util.IdGeneratorService;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -9,7 +12,6 @@ import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,6 +22,7 @@ import java.util.Map;
 
 @Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "three_star_hotels")
 public class ThreeStarHotel {
@@ -229,18 +232,24 @@ public class ThreeStarHotel {
     private LocalDate signedDate;
 
     @PrePersist
-    protected void onCreate() {
-        createdAt = Instant.now();
-        updatedAt = Instant.now();
+    protected void generateId() {
 
-        if (registrationStatus == null) {
-            registrationStatus = "PENDING";
+        if (this.registrationId == null || this.registrationId.isBlank()) {
+
+            List<String> existingIds =
+                    BeanUtil.getBean(ThreeStarHotelRepository.class)
+                            .findAllRegistrationIds();
+
+            this.registrationId =
+                    BeanUtil.getBean(IdGeneratorService.class)
+                            .generateMonthlyId("SH3", 4, existingIds);
         }
 
-        if (declarationAccepted == null) {
-            declarationAccepted = false;
+        if (this.createdAt == null) {
+            this.createdAt = Instant.now();
         }
     }
+
 
     @PreUpdate
     protected void onUpdate() {

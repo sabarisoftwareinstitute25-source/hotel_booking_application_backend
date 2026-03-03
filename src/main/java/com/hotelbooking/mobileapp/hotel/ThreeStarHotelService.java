@@ -1,20 +1,37 @@
 package com.hotelbooking.mobileapp.hotel;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
+import java.util.Optional;
 
-public interface ThreeStarHotelService {
+@Service
+public class ThreeStarHotelService {
 
-    ThreeStarHotel registerHotel(ThreeStarHotel request);
+    private final ThreeStarHotelRepository repository;
 
-    ThreeStarHotel getById(String registrationId);
+    public ThreeStarHotelService(ThreeStarHotelRepository repository) {
+        this.repository = repository;
+    }
 
-    List<ThreeStarHotel> getAllHotels();
+    // Save Hotel
+    public ThreeStarHotel saveHotel(ThreeStarHotel hotel) {
+        return repository.save(hotel);
+    }
 
-    List<ThreeStarHotel> getByVendor(String vendorId);
+    // Get All Hotels
+    public List<ThreeStarHotel> getAllHotels() {
+        return repository.findAll();
+    }
 
-    List<ThreeStarHotel> getByStatus(String status);
+    // Get By ID
+    public Optional<ThreeStarHotel> getHotelById(String registrationId) {
+        return repository.findById(registrationId);
+    }
 
-    ThreeStarHotel updateHotel(String registrationId, ThreeStarHotel hotel);
+    // Delete
+    public void deleteHotel(String registrationId) {
+        repository.deleteById(registrationId);
+    }
 
-    void deleteHotel(String registrationId);
 }

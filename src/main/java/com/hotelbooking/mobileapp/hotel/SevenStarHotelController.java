@@ -1,6 +1,7 @@
 package com.hotelbooking.mobileapp.hotel;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,33 +12,27 @@ import java.util.List;
 @CrossOrigin
 public class SevenStarHotelController {
 
-    private final SevenStarHotelService service;
+    private final SevenStarHotelService service; // inject the correct service
 
     @PostMapping
-    public SevenStarHotel createHotel(@RequestBody SevenStarHotel hotel) {
-        return service.createHotel(hotel);
-    }
-
-    @GetMapping("/{registrationId}")
-    public SevenStarHotel getHotel(@PathVariable String registrationId) {
-        return service.getByRegistrationId(registrationId);
+    public ResponseEntity<SevenStarHotel> saveHotel(@RequestBody SevenStarHotel hotel) {
+        SevenStarHotel saved = service.saveHotel(hotel);
+        return ResponseEntity.ok(saved);
     }
 
     @GetMapping
-    public List<SevenStarHotel> getAllHotels() {
-        return service.getAllHotels();
+    public ResponseEntity<List<SevenStarHotel>> getAllHotels() {
+        return ResponseEntity.ok(service.getAllHotels());
     }
 
-    @PutMapping("/{registrationId}")
-    public SevenStarHotel updateHotel(
-            @PathVariable String registrationId,
-            @RequestBody SevenStarHotel hotel) {
-        return service.updateHotel(registrationId, hotel);
+    @GetMapping("/{registrationId}")
+    public ResponseEntity<SevenStarHotel> getHotelById(@PathVariable String registrationId) {
+        return ResponseEntity.ok(service.getHotelById(registrationId));
     }
 
     @DeleteMapping("/{registrationId}")
-    public String deleteHotel(@PathVariable String registrationId) {
+    public ResponseEntity<Void> deleteHotel(@PathVariable String registrationId) {
         service.deleteHotel(registrationId);
-        return "Hotel deleted successfully";
+        return ResponseEntity.noContent().build();
     }
 }

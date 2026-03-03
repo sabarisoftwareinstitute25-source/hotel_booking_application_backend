@@ -1,20 +1,30 @@
 package com.hotelbooking.mobileapp.hotel;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-public interface HotelVendorService {
+@Service
+@RequiredArgsConstructor
+public class HotelVendorService {
 
-    HotelVendor saveHotelVendor(HotelVendor request);
+    private final HotelVendorRepository repository;
 
-    HotelVendor registerHotel(HotelVendor hotelVendor);
+    public HotelVendor saveHotel(HotelVendor hotel) {
+        return repository.save(hotel);
+    }
 
-    HotelVendor getByRegistrationId(String registrationId);
+    public List<HotelVendor> getAllHotels() {
+        return repository.findAll();
+    }
 
-    List<HotelVendor> getAllHotels();
+    public HotelVendor getHotelById(String registrationId) {
+        return repository.findById(registrationId)
+                .orElseThrow(() -> new RuntimeException("Hotel not found"));
+    }
 
-    List<HotelVendor> getByVendor(String vendorId);
-
-    HotelVendor updateHotel(String registrationId, HotelVendor hotelVendor);
-
-    void deleteHotel(String registrationId);
+    public void deleteHotel(String registrationId) {
+        repository.deleteById(registrationId);
+    }
 }

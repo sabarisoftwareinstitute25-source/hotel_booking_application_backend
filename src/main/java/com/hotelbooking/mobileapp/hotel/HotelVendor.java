@@ -1,5 +1,8 @@
 package com.hotelbooking.mobileapp.hotel;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hotelbooking.mobileapp.util.BeanUtil;
+import com.hotelbooking.mobileapp.util.IdGeneratorService;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -11,8 +14,7 @@ import java.util.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "normal_hotels")
 public class HotelVendor {
@@ -179,11 +181,22 @@ public class HotelVendor {
     private Instant updatedAt;
 
     @PrePersist
-    protected void onCreate() {
-        createdAt = Instant.now();
-        updatedAt = Instant.now();
-        if (registrationStatus == null) registrationStatus = "PENDING";
-        if (declarationAccepted == null) declarationAccepted = false;
+    protected void generateId() {
+
+        if (this.registrationId == null || this.registrationId.isBlank()) {
+
+            List<String> existingIds =
+                    BeanUtil.getBean(HotelVendorRepository.class)
+                            .findAllRegistrationIds();
+
+            this.registrationId =
+                    BeanUtil.getBean(IdGeneratorService.class)
+                            .generateMonthlyId("SHN", 4, existingIds);
+        }
+
+        if (this.createdAt == null) {
+            this.createdAt = Instant.now();
+        }
     }
 
     @PreUpdate

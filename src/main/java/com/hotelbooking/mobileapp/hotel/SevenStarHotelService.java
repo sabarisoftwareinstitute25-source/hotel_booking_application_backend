@@ -1,16 +1,30 @@
 package com.hotelbooking.mobileapp.hotel;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
-public interface SevenStarHotelService {
+@Service
+@RequiredArgsConstructor
+public class SevenStarHotelService {
 
-    SevenStarHotel createHotel(SevenStarHotel hotel);
+    private final SevenStarHotelRepository repository;
 
-    SevenStarHotel getByRegistrationId(String registrationId);
+    public SevenStarHotel saveHotel(SevenStarHotel hotel) {
+        return repository.save(hotel);
+    }
 
-    List<SevenStarHotel> getAllHotels();
+    public List<SevenStarHotel> getAllHotels() {
+        return repository.findAll();
+    }
 
-    SevenStarHotel updateHotel(String registrationId, SevenStarHotel hotel);
+    public SevenStarHotel getHotelById(String registrationId) {
+        return repository.findById(registrationId)
+                .orElseThrow(() -> new RuntimeException("Hotel not found"));
+    }
 
-    void deleteHotel(String registrationId);
+    public void deleteHotel(String registrationId) {
+        repository.deleteById(registrationId);
+    }
 }

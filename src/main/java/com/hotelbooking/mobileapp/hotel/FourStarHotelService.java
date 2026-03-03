@@ -1,20 +1,32 @@
 package com.hotelbooking.mobileapp.hotel;
 
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.time.Instant;
 import java.util.List;
 
-public interface FourStarHotelService {
+@Service
+@RequiredArgsConstructor
+public class FourStarHotelService {
 
-    FourStarHotel registerHotel(FourStarHotel hotel);
+    private final FourStarHotelRepository repository;
 
-    FourStarHotel getById(String registrationId);
+    public FourStarHotel saveHotel(FourStarHotel hotel) {
+        return repository.save(hotel);
+    }
 
-    List<FourStarHotel> getAllHotels();
+    public List<FourStarHotel> getAllHotels() {
+        return repository.findAll();
+    }
 
-    List<FourStarHotel> getByVendor(String vendorId);
+    public FourStarHotel getHotelById(String registrationId) {
+        return repository.findById(registrationId)
+                .orElseThrow(() -> new RuntimeException("Hotel not found"));
+    }
 
-    List<FourStarHotel> getByStatus(String status);
-
-    FourStarHotel updateHotel(String registrationId, FourStarHotel hotel);
-
-    void deleteHotel(String registrationId);
+    public void deleteHotel(String registrationId) {
+        repository.deleteById(registrationId);
+    }
 }

@@ -7,42 +7,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/hotel-vendors")
+@RequestMapping("/api/normal-hotels")
 @RequiredArgsConstructor
 public class HotelVendorController {
 
-    private final HotelVendorService service;
+    private final HotelVendorService service; // inject the correct service
 
     @PostMapping
-    public ResponseEntity<HotelVendor> register(@RequestBody HotelVendor hotelVendor) {
-        return ResponseEntity.ok(service.registerHotel(hotelVendor));
-    }
-
-    @GetMapping("/{registrationId}")
-    public ResponseEntity<HotelVendor> getById(@PathVariable String registrationId) {
-        return ResponseEntity.ok(service.getByRegistrationId(registrationId));
+    public ResponseEntity<HotelVendor> saveHotel(@RequestBody HotelVendor hotel) {
+        HotelVendor saved = service.saveHotel(hotel);
+        return ResponseEntity.ok(saved);
     }
 
     @GetMapping
-    public ResponseEntity<List<HotelVendor>> getAll() {
+    public ResponseEntity<List<HotelVendor>> getAllHotels() {
         return ResponseEntity.ok(service.getAllHotels());
     }
 
-    @GetMapping("/vendor/{vendorId}")
-    public ResponseEntity<List<HotelVendor>> getByVendor(@PathVariable String vendorId) {
-        return ResponseEntity.ok(service.getByVendor(vendorId));
-    }
-
-    @PutMapping("/{registrationId}")
-    public ResponseEntity<HotelVendor> update(
-            @PathVariable String registrationId,
-            @RequestBody HotelVendor hotelVendor) {
-        return ResponseEntity.ok(service.updateHotel(registrationId, hotelVendor));
+    @GetMapping("/{registrationId}")
+    public ResponseEntity<HotelVendor> getHotelById(@PathVariable String registrationId) {
+        return ResponseEntity.ok(service.getHotelById(registrationId));
     }
 
     @DeleteMapping("/{registrationId}")
-    public ResponseEntity<String> delete(@PathVariable String registrationId) {
+    public ResponseEntity<Void> deleteHotel(@PathVariable String registrationId) {
         service.deleteHotel(registrationId);
-        return ResponseEntity.ok("Hotel deleted successfully");
+        return ResponseEntity.noContent().build();
     }
 }

@@ -1,5 +1,8 @@
 package com.hotelbooking.mobileapp.hotel;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hotelbooking.mobileapp.util.BeanUtil;
+import com.hotelbooking.mobileapp.util.IdGeneratorService;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +17,7 @@ import java.util.Map;
 
 @Getter
 @Setter
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "global_elite_hotels")
 public class GlobalEliteHotel {
@@ -22,8 +26,9 @@ public class GlobalEliteHotel {
     @Column(nullable = false, length = 16)
     private String registrationId;
 
-    @Column(name = "vendor_id", length = 16)
-    private String vendorId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id")
+    private Vendor vendor;
 
     // Step 1 - Property Overview
     @Column(nullable = false)
@@ -142,10 +147,23 @@ public class GlobalEliteHotel {
     @Column(columnDefinition = "TEXT")
     private String signatureImage;
 
-    // Auto timestamp handling
     @PrePersist
-    protected void onCreate() {
-        this.createdAt = Instant.now();
+    protected void generateId() {
+
+        if (this.registrationId == null || this.registrationId.isBlank()) {
+
+            List<String> existingIds =
+                    BeanUtil.getBean(GlobalEliteHotelRepository.class)
+                            .findAllRegistrationIds();
+
+            this.registrationId =
+                    BeanUtil.getBean(IdGeneratorService.class)
+                            .generateMonthlyId("SHG", 4, existingIds);
+        }
+
+        if (this.createdAt == null) {
+            this.createdAt = Instant.now();
+        }
     }
 
     @PreUpdate

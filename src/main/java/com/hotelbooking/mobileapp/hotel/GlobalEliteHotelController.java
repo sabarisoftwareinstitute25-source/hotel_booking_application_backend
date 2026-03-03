@@ -1,6 +1,7 @@
 package com.hotelbooking.mobileapp.hotel;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,33 +12,27 @@ import java.util.List;
 @CrossOrigin
 public class GlobalEliteHotelController {
 
-    private final GlobalEliteHotelService service;
+    private final GlobalEliteHotelService service; // inject the correct service
 
     @PostMapping
-    public GlobalEliteHotel create(@RequestBody GlobalEliteHotel hotel) {
-        return service.create(hotel);
-    }
-
-    @GetMapping("/{registrationId}")
-    public GlobalEliteHotel getById(@PathVariable String registrationId) {
-        return service.getByRegistrationId(registrationId);
+    public ResponseEntity<GlobalEliteHotel> saveHotel(@RequestBody GlobalEliteHotel hotel) {
+        GlobalEliteHotel saved = service.saveHotel(hotel);
+        return ResponseEntity.ok(saved);
     }
 
     @GetMapping
-    public List<GlobalEliteHotel> getAll() {
-        return service.getAll();
+    public ResponseEntity<List<GlobalEliteHotel>> getAllHotels() {
+        return ResponseEntity.ok(service.getAllHotels());
     }
 
-    @PutMapping("/{registrationId}")
-    public GlobalEliteHotel update(
-            @PathVariable String registrationId,
-            @RequestBody GlobalEliteHotel hotel) {
-        return service.update(registrationId, hotel);
+    @GetMapping("/{registrationId}")
+    public ResponseEntity<GlobalEliteHotel> getHotelById(@PathVariable String registrationId) {
+        return ResponseEntity.ok(service.getHotelById(registrationId));
     }
 
     @DeleteMapping("/{registrationId}")
-    public String delete(@PathVariable String registrationId) {
-        service.delete(registrationId);
-        return "Global Elite Hotel deleted successfully";
+    public ResponseEntity<Void> deleteHotel(@PathVariable String registrationId) {
+        service.deleteHotel(registrationId);
+        return ResponseEntity.noContent().build();
     }
 }

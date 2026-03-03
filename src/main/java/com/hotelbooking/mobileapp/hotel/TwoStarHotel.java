@@ -1,5 +1,8 @@
 package com.hotelbooking.mobileapp.hotel;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hotelbooking.mobileapp.util.BeanUtil;
+import com.hotelbooking.mobileapp.util.IdGeneratorService;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -16,8 +19,7 @@ import java.util.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "two_star_hotels")
 public class TwoStarHotel {
@@ -189,11 +191,22 @@ public class TwoStarHotel {
     private LocalDate signedDate;
 
     @PrePersist
-    protected void onCreate() {
-        createdAt = Instant.now();
-        updatedAt = Instant.now();
-        if (registrationStatus == null) registrationStatus = "PENDING";
-        if (declarationAccepted == null) declarationAccepted = false;
+    protected void generateId() {
+
+        if (this.registrationId == null || this.registrationId.isBlank()) {
+
+            List<String> existingIds =
+                    BeanUtil.getBean(TwoStarHotelRepository.class)
+                            .findAllRegistrationIds();
+
+            this.registrationId =
+                    BeanUtil.getBean(IdGeneratorService.class)
+                            .generateMonthlyId("SH2", 4, existingIds);
+        }
+
+        if (this.createdAt == null) {
+            this.createdAt = Instant.now();
+        }
     }
     @PreUpdate
     protected void onUpdate() {

@@ -1,6 +1,5 @@
 package com.hotelbooking.mobileapp.hotel;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,46 +7,39 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/three-star-hotels")
-@RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class ThreeStarHotelController {
 
     private final ThreeStarHotelService service;
 
+    public ThreeStarHotelController(ThreeStarHotelService service) {
+        this.service = service;
+    }
+
+    // Save Hotel
     @PostMapping
-    public ResponseEntity<ThreeStarHotel> register(@RequestBody ThreeStarHotel request) {
-        return ResponseEntity.ok(service.registerHotel(request));
+    public ResponseEntity<ThreeStarHotel> saveHotel(@RequestBody ThreeStarHotel hotel) {
+        return ResponseEntity.ok(service.saveHotel(hotel));
     }
 
-    @GetMapping("/{registrationId}")
-    public ResponseEntity<ThreeStarHotel> getById(@PathVariable String registrationId) {
-        return ResponseEntity.ok(service.getById(registrationId));
-    }
-
+    // Get All
     @GetMapping
-    public ResponseEntity<List<ThreeStarHotel>> getAll() {
+    public ResponseEntity<List<ThreeStarHotel>> getAllHotels() {
         return ResponseEntity.ok(service.getAllHotels());
     }
 
-    @GetMapping("/vendor/{vendorId}")
-    public ResponseEntity<List<ThreeStarHotel>> getByVendor(@PathVariable String vendorId) {
-        return ResponseEntity.ok(service.getByVendor(vendorId));
+    // Get By ID
+    @GetMapping("/{id}")
+    public ResponseEntity<ThreeStarHotel> getHotel(@PathVariable String id) {
+        return service.getHotelById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/status/{status}")
-    public ResponseEntity<List<ThreeStarHotel>> getByStatus(@PathVariable String status) {
-        return ResponseEntity.ok(service.getByStatus(status));
-    }
-
-    @PutMapping("/{registrationId}")
-    public ResponseEntity<ThreeStarHotel> update(
-            @PathVariable String registrationId,
-            @RequestBody ThreeStarHotel hotel) {
-        return ResponseEntity.ok(service.updateHotel(registrationId, hotel));
-    }
-
-    @DeleteMapping("/{registrationId}")
-    public ResponseEntity<String> delete(@PathVariable String registrationId) {
-        service.deleteHotel(registrationId);
-        return ResponseEntity.ok("Three Star Hotel deleted successfully");
+    // Delete
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteHotel(@PathVariable String id) {
+        service.deleteHotel(id);
+        return ResponseEntity.ok("Deleted Successfully");
     }
 }

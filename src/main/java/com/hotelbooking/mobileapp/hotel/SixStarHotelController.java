@@ -11,43 +11,27 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SixStarHotelController {
 
-    private final SixStarHotelService service;
+    private final SixStarHotelService service; // inject the correct service
 
     @PostMapping
-    public ResponseEntity<SixStarHotel> register(@RequestBody SixStarHotel hotel) {
-        return ResponseEntity.ok(service.registerHotel(hotel));
-    }
-
-    @GetMapping("/{registrationId}")
-    public ResponseEntity<SixStarHotel> getById(@PathVariable String registrationId) {
-        return ResponseEntity.ok(service.getById(registrationId));
+    public ResponseEntity<SixStarHotel> saveHotel(@RequestBody SixStarHotel hotel) {
+        SixStarHotel saved = service.saveHotel(hotel);
+        return ResponseEntity.ok(saved);
     }
 
     @GetMapping
-    public ResponseEntity<List<SixStarHotel>> getAll() {
+    public ResponseEntity<List<SixStarHotel>> getAllHotels() {
         return ResponseEntity.ok(service.getAllHotels());
     }
 
-    @GetMapping("/vendor/{vendorId}")
-    public ResponseEntity<List<SixStarHotel>> getByVendor(@PathVariable String vendorId) {
-        return ResponseEntity.ok(service.getByVendor(vendorId));
-    }
-
-    @GetMapping("/status/{status}")
-    public ResponseEntity<List<SixStarHotel>> getByStatus(@PathVariable String status) {
-        return ResponseEntity.ok(service.getByStatus(status));
-    }
-
-    @PutMapping("/{registrationId}")
-    public ResponseEntity<SixStarHotel> update(
-            @PathVariable String registrationId,
-            @RequestBody SixStarHotel hotel) {
-        return ResponseEntity.ok(service.updateHotel(registrationId, hotel));
+    @GetMapping("/{registrationId}")
+    public ResponseEntity<SixStarHotel> getHotelById(@PathVariable String registrationId) {
+        return ResponseEntity.ok(service.getHotelById(registrationId));
     }
 
     @DeleteMapping("/{registrationId}")
-    public ResponseEntity<String> delete(@PathVariable String registrationId) {
+    public ResponseEntity<Void> deleteHotel(@PathVariable String registrationId) {
         service.deleteHotel(registrationId);
-        return ResponseEntity.ok("Six Star Hotel deleted successfully");
+        return ResponseEntity.noContent().build();
     }
 }
