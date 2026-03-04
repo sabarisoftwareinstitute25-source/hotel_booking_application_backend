@@ -10,17 +10,17 @@ import java.util.Optional;
 public interface UserAccountRepository extends JpaRepository<UserAccount, String> {
     Optional<UserAccount> findByEmail(String email);
     boolean existsByEmail(String email);
-    Optional<UserAccount> findByPhone(String phone);
-    boolean existsByPhone(String phone);
+    Optional<UserAccount> findByMobile(String mobile);
+    boolean existsByMobile(String mobile);
 
-    @Query("SELECT u FROM UserAccount u WHERE u.phone = :phone OR u.phone = :phoneWithoutPlus OR u.phone = :phoneWithoutCountry")
-    List<UserAccount> findByPhoneVariations(
-        @Param("phone") String phone,
-        @Param("phoneWithoutPlus") String phoneWithoutPlus,
-        @Param("phoneWithoutCountry") String phoneWithoutCountry
+    @Query("SELECT u FROM UserAccount u WHERE u.mobile = :mobile OR u.mobile = :mobileWithoutPlus OR u.mobile = :mobileWithoutCountry")
+    List<UserAccount> findByMobileVariations(
+        @Param("mobile") String mobile,
+        @Param("mobileWithoutPlus") String mobileWithoutPlus,
+        @Param("mobileWithoutCountry") String mobileWithoutCountry
     );
 
     Optional<Object> findByEmailIgnoreCase(String email);
-    Optional<UserAccount> findByMobile(String mobile);
+
 }
 

@@ -17,7 +17,7 @@ public class UserAccountController {
     @PostMapping("/send-otp")
     public ResponseEntity<String> sendOtp(@RequestBody Map<String, String> request) {
         String fullName = request.get("fullName");
-        String mobile = request.get("phone");
+        String mobile = request.get("mobile");
 
         try {
             userAccountService.sendOtp(fullName, mobile);
@@ -30,7 +30,7 @@ public class UserAccountController {
     // Step 2: Verify OTP
     @PostMapping("/verify-otp")
     public ResponseEntity<String> verifyOtp(@RequestBody Map<String, String> request) {
-        String mobile = request.get("phone");
+        String mobile = request.get("mobile");
         String otp = request.get("otp");
 
         boolean verified = userAccountService.verifyOtp(mobile, otp);
