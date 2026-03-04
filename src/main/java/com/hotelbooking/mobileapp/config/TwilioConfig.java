@@ -11,19 +11,14 @@ import javax.annotation.PostConstruct;
 @Configuration
 public class TwilioConfig {
 
-    @Value("${twilio.account_sid}")
-    private String accountSid;
-
-    @Value("${twilio.auth_token}")
-    private String authToken;
 
     @Value("${twilio.phone_number}")
     private String twilioNumber;
 
-    @PostConstruct
-    public void init() {
-        Twilio.init(accountSid, authToken);
-    }
+//    @PostConstruct
+//    public void init() {
+//        Twilio.init(accountSid, authToken);
+//    }
 
     public void sendOtpSms(String mobile, String message) {
         Message.creator(
