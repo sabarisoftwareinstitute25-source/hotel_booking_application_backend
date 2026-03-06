@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface ThreeStarHotelRepository extends JpaRepository<ThreeStarHotel, String> {
 
-    @Query("SELECT t.registrationId FROM ThreeStarHotel t")
-    List<String> findAllRegistrationIds();
+    @Query("SELECT t.hotelId FROM ThreeStarHotel t")
+    List<String> findAllHotelIds();
 }

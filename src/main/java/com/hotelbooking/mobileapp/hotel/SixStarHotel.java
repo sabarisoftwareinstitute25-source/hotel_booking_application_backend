@@ -25,14 +25,11 @@ public class SixStarHotel {
 
     @Id
     @Column(nullable = false, length = 20)
-    private String registrationId;
+    private String hotelId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id")
     private Vendor vendor;
-
-    @Column(name = "hotel_id", nullable = false, length = 20)
-    private String hotelId;
 
     // Hotel Info
     @Column(name = "hotel_name", nullable = false, length = 150)
@@ -221,15 +218,15 @@ public class SixStarHotel {
     @PrePersist
     protected void generateId() {
 
-        if (this.registrationId == null || this.registrationId.isBlank()) {
+        if (this.hotelId == null || this.hotelId.isBlank()) {
 
             List<String> existingIds =
                     BeanUtil.getBean(SixStarHotelRepository.class)
-                            .findAllRegistrationIds();
+                            .findAllHotelIds();
 
-            this.registrationId =
+            this.hotelId =
                     BeanUtil.getBean(IdGeneratorService.class)
-                            .generateMonthlyId("SH6", 4, existingIds);
+                            .generateMonthlyId("EIH6", 4, existingIds);
         }
 
         if (this.createdAt == null) {

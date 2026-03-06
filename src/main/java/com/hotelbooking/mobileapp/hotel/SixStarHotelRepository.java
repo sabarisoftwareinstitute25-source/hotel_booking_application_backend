@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface SixStarHotelRepository extends JpaRepository<SixStarHotel, String> {
 
-    @Query("SELECT f.registrationId FROM SixStarHotel f")
-    List<String> findAllRegistrationIds();
+    @Query("SELECT f.hotelId FROM SixStarHotel f")
+    List<String> findAllHotelIds();
 }

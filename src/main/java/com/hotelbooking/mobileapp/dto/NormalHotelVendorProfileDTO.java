@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class VendorProfileDTO {
+public class NormalHotelVendorProfileDTO {
 
     // Person Details
     private String ownerName;

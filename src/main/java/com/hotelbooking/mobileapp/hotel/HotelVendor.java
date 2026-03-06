@@ -21,7 +21,7 @@ public class HotelVendor {
 
     @Id
     @Column(nullable = false, length = 16)
-    private String registrationId;
+    private String hotelId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id")
@@ -183,15 +183,15 @@ public class HotelVendor {
     @PrePersist
     protected void generateId() {
 
-        if (this.registrationId == null || this.registrationId.isBlank()) {
+        if (this.hotelId == null || this.hotelId.isBlank()) {
 
             List<String> existingIds =
                     BeanUtil.getBean(HotelVendorRepository.class)
-                            .findAllRegistrationIds();
+                            .findAllHotelIds();
 
-            this.registrationId =
+            this.hotelId =
                     BeanUtil.getBean(IdGeneratorService.class)
-                            .generateMonthlyId("SHN", 4, existingIds);
+                            .generateMonthlyId("EIHN", 4, existingIds);
         }
 
         if (this.createdAt == null) {

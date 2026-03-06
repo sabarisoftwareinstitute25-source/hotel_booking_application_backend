@@ -19,12 +19,12 @@ public class HotelVendorService {
         return repository.findAll();
     }
 
-    public HotelVendor getHotelById(String registrationId) {
-        return repository.findById(registrationId)
+    public HotelVendor getHotelById(String hotelId) {
+        return repository.findById(hotelId)
                 .orElseThrow(() -> new RuntimeException("Hotel not found"));
     }
 
-    public void deleteHotel(String registrationId) {
-        repository.deleteById(registrationId);
+    public void deleteHotel(String hotelId) {
+        repository.deleteById(hotelId);
     }
 }

@@ -21,12 +21,12 @@ public class FourStarHotelService {
         return repository.findAll();
     }
 
-    public FourStarHotel getHotelById(String registrationId) {
-        return repository.findById(registrationId)
+    public FourStarHotel getHotelById(String hotelId) {
+        return repository.findById(hotelId)
                 .orElseThrow(() -> new RuntimeException("Hotel not found"));
     }
 
-    public void deleteHotel(String registrationId) {
-        repository.deleteById(registrationId);
+    public void deleteHotel(String hotelId) {
+        repository.deleteById(hotelId);
     }
 }

@@ -25,13 +25,13 @@ public class ThreeStarHotelService {
     }
 
     // Get By ID
-    public Optional<ThreeStarHotel> getHotelById(String registrationId) {
-        return repository.findById(registrationId);
+    public Optional<ThreeStarHotel> getHotelById(String hotelId) {
+        return repository.findById(hotelId);
     }
 
     // Delete
-    public void deleteHotel(String registrationId) {
-        repository.deleteById(registrationId);
+    public void deleteHotel(String hotelId) {
+        repository.deleteById(hotelId);
     }
 
 }

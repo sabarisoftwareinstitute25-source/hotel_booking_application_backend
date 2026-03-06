@@ -6,7 +6,6 @@ import com.hotelbooking.mobileapp.util.IdGeneratorService;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -26,7 +25,7 @@ public class TwoStarHotel {
 
     @Id
     @Column(nullable = false, length = 20)
-    private String registrationId;
+    private String hotelId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id")
@@ -193,15 +192,15 @@ public class TwoStarHotel {
     @PrePersist
     protected void generateId() {
 
-        if (this.registrationId == null || this.registrationId.isBlank()) {
+        if (this.hotelId == null || this.hotelId.isBlank()) {
 
             List<String> existingIds =
                     BeanUtil.getBean(TwoStarHotelRepository.class)
-                            .findAllRegistrationIds();
+                            .findAllHotelIds();
 
-            this.registrationId =
+            this.hotelId =
                     BeanUtil.getBean(IdGeneratorService.class)
-                            .generateMonthlyId("SH2", 4, existingIds);
+                            .generateMonthlyId("EIH2", 4, existingIds);
         }
 
         if (this.createdAt == null) {

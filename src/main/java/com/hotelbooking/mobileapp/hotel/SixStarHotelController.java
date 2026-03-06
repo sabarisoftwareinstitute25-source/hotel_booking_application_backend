@@ -24,14 +24,14 @@ public class SixStarHotelController {
         return ResponseEntity.ok(service.getAllHotels());
     }
 
-    @GetMapping("/{registrationId}")
-    public ResponseEntity<SixStarHotel> getHotelById(@PathVariable String registrationId) {
-        return ResponseEntity.ok(service.getHotelById(registrationId));
+    @GetMapping("/{hotelId}")
+    public ResponseEntity<SixStarHotel> getHotelById(@PathVariable String hotelId) {
+        return ResponseEntity.ok(service.getHotelById(hotelId));
     }
 
-    @DeleteMapping("/{registrationId}")
-    public ResponseEntity<Void> deleteHotel(@PathVariable String registrationId) {
-        service.deleteHotel(registrationId);
+    @DeleteMapping("/{hotelId}")
+    public ResponseEntity<Void> deleteHotel(@PathVariable String hotelId) {
+        service.deleteHotel(hotelId);
         return ResponseEntity.noContent().build();
     }
 }

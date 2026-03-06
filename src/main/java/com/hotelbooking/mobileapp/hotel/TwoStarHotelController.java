@@ -29,17 +29,17 @@ public class TwoStarHotelController {
     }
 
     // Get By ID
-    @GetMapping("/{id}")
-    public ResponseEntity<TwoStarHotel> getHotel(@PathVariable String id) {
-        return service.getHotelById(id)
+    @GetMapping("/{hotelId}")
+    public ResponseEntity<TwoStarHotel> getHotel(@PathVariable String hotelId) {
+        return service.getHotelById(hotelId)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     // Delete
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteHotel(@PathVariable String id) {
-        service.deleteHotel(id);
+    @DeleteMapping("/{hotelId}")
+    public ResponseEntity<String> deleteHotel(@PathVariable String hotelId) {
+        service.deleteHotel(hotelId);
         return ResponseEntity.ok("Deleted Successfully");
     }
 }

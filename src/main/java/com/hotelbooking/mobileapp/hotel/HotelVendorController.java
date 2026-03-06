@@ -24,14 +24,14 @@ public class HotelVendorController {
         return ResponseEntity.ok(service.getAllHotels());
     }
 
-    @GetMapping("/{registrationId}")
-    public ResponseEntity<HotelVendor> getHotelById(@PathVariable String registrationId) {
-        return ResponseEntity.ok(service.getHotelById(registrationId));
+    @GetMapping("/{hotelId}")
+    public ResponseEntity<HotelVendor> getHotelById(@PathVariable String hotelId) {
+        return ResponseEntity.ok(service.getHotelById(hotelId));
     }
 
-    @DeleteMapping("/{registrationId}")
-    public ResponseEntity<Void> deleteHotel(@PathVariable String registrationId) {
-        service.deleteHotel(registrationId);
+    @DeleteMapping("/{hotelId}")
+    public ResponseEntity<Void> deleteHotel(@PathVariable String hotelId) {
+        service.deleteHotel(hotelId);
         return ResponseEntity.noContent().build();
     }
 }

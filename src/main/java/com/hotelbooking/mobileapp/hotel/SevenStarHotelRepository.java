@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface SevenStarHotelRepository extends JpaRepository<SevenStarHotel, String> {
 
-    @Query("SELECT f.registrationId FROM SevenStarHotel f")
-    List<String> findAllRegistrationIds();
+    @Query("SELECT f.hotelId FROM SevenStarHotel f")
+    List<String> findAllHotelIds();
 }

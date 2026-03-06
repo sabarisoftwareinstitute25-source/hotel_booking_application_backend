@@ -19,12 +19,12 @@ public class SevenStarHotelService {
         return repository.findAll();
     }
 
-    public SevenStarHotel getHotelById(String registrationId) {
-        return repository.findById(registrationId)
+    public SevenStarHotel getHotelById(String hotelId) {
+        return repository.findById(hotelId)
                 .orElseThrow(() -> new RuntimeException("Hotel not found"));
     }
 
-    public void deleteHotel(String registrationId) {
-        repository.deleteById(registrationId);
+    public void deleteHotel(String hotelId) {
+        repository.deleteById(hotelId);
     }
 }

@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface GlobalEliteHotelRepository extends JpaRepository<GlobalEliteHotel, String> {
 
-    @Query("SELECT f.registrationId FROM GlobalEliteHotel f")
-    List<String> findAllRegistrationIds();
+    @Query("SELECT f.hotelId FROM GlobalEliteHotel f")
+    List<String> findAllHotelIds();
 }

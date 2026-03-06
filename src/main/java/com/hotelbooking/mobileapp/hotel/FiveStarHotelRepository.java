@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface FiveStarHotelRepository extends JpaRepository<FiveStarHotel, String> {
-    @Query("SELECT f.registrationId FROM FiveStarHotel f")
-    List<String> findAllRegistrationIds();
+    @Query("SELECT f.hotelId FROM FiveStarHotel f")
+    List<String> findAllHotelIds();
 }
