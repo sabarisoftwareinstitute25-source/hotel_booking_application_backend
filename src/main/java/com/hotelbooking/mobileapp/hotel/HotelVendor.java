@@ -46,6 +46,8 @@ public class HotelVendor {
     private String totalRooms;
 
     // Contact
+    private String profilePhoto;
+
     @NotBlank
     @Column(name = "owner_name", nullable = false, length = 50)
     private String ownerName;
@@ -67,10 +69,6 @@ public class HotelVendor {
 
     @Column(name = "website", length = 250)
     private String website;
-
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "person_photo_info", columnDefinition = "jsonb")
-    private List<String> personPhotoInfo = new ArrayList<>();
 
     // Address
     @NotBlank
@@ -103,15 +101,53 @@ public class HotelVendor {
     @Column(name = "selected_room_types", columnDefinition = "jsonb")
     private List<String> selectedRoomTypes = new ArrayList<>();
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "room_details", columnDefinition = "jsonb")
-    private Map<String, Map<String, Object>> roomDetails = new HashMap<>();
+    // Single Room Details
+    private Integer singleNumberOfRooms;
+    private Integer singleMaxOccupancy;
+    private Double singlePricePerNight;
+    private String singleAcOrNonAc;
+    private Boolean singleExtraBedAvailable;
 
-    @Column(name = "min_tariff", length = 20)
-    private String minTariff;
+    // Double Room Details
+    private Integer doubleNumberOfRooms;
+    private Integer doubleMaxOccupancy;
+    private Double doublePricePerNight;
+    private String doubleAcOrNonAc;
+    private Boolean doubleExtraBedAvailable;
 
-    @Column(name = "max_tariff", length = 20)
-    private String maxTariff;
+    // Deluxe Room Details
+    private Integer deluxeNumberOfRooms;
+    private Integer deluxeMaxOccupancy;
+    private Double deluxePricePerNight;
+    private String deluxeAcOrNonAc;
+    private Boolean deluxeExtraBedAvailable;
+
+    // Suite Room Details
+    private Integer suiteNumberOfRooms;
+    private Integer suiteMaxOccupancy;
+    private Double suitePricePerNight;
+    private String suiteAcOrNonAc;
+    private Boolean suiteExtraBedAvailable;
+
+    // Family Room Details
+    private Integer familyNumberOfRooms;
+    private Integer familyMaxOccupancy;
+    private Double familyPricePerNight;
+    private String familyAcOrNonAc;
+    private Boolean familyExtraBedAvailable;
+
+    // Executive Room Details
+    private Integer executiveNumberOfRooms;
+    private Integer executiveMaxOccupancy;
+    private Double executivePricePerNight;
+    private String executiveAcOrNonAc;
+    private Boolean executiveExtraBedAvailable;
+
+    @Column(name = "min_price", length = 20)
+    private String minPrice;
+
+    @Column(name = "max_price", length = 20)
+    private String maxPrice;
 
     private Boolean extraBedAvailable;
 
@@ -139,8 +175,7 @@ public class HotelVendor {
     // Legal
     private String gstNumber;
     private String fssaiLicense;
-    private String tradeLicense;
-    private String panNumber;
+    private String tradeLicenseNumber;
     private String aadharNumber;
 
     // Bank
@@ -161,19 +196,30 @@ public class HotelVendor {
     @Column(name = "account_type", nullable = false)
     private String accountType; // SAVINGS / CURRENT
 
+    // Documents Required
+    private String fssaiCertificate;
+    private String gstCertificate;
+    private String tradeLicense;
+    private String hotelPhoto;
+    private String cancelledCheque;
+    private String ownerIdProof;
+
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "uploaded_files", columnDefinition = "jsonb")
     private Map<String, Map<String, Object>> uploadedFiles = new HashMap<>();
 
-    private String signatureName;
-    private String declarationName;
-    private Instant declarationDate;
-
     @Column(nullable = false)
     private Boolean declarationAccepted = false;
 
-    @Column(length = 20)
-    private String registrationStatus = "PENDING";
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String signatureImage;
+
+    private String uploadSignature;
+
+    private String declarationName;
+    private Instant declarationDate;
+
 
     @Column(nullable = false, updatable = false)
     private Instant createdAt;

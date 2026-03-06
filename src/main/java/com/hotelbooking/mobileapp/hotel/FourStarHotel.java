@@ -65,9 +65,7 @@ public class FourStarHotel {
     @Column(length = 200)
     private String website;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "person_photo_info", columnDefinition = "jsonb")
-    private List<String> personPhotoInfo = new ArrayList<>();
+    private String profilePhoto;
 
     // Address
     @Column(name = "address_line1", nullable = false, length = 250)
@@ -96,12 +94,36 @@ public class FourStarHotel {
     @Column(name = "selected_room_types", columnDefinition = "jsonb")
     private List<String> selectedRoomTypes = new ArrayList<>();
 
+    // Superior Room Details
+    private Integer superiorNumberOfRooms;
+    private Integer superiorMaxOccupancy;
+    private Double superiorPricePerDay;
+    private Boolean superiorAc;
+    private String superiorBedSize;
+
+    // Deluxe Room Details
+    private Integer deluxeNumberOfRooms;
+    private Integer deluxeMaxOccupancy;
+    private Double deluxePricePerDay;
+    private String deluxeBedType;
+    private Boolean deluxeAc;
+
+    // Executive Room Details
+    private Integer executiveNumberOfRooms;
+    private Integer executiveMaxOccupancy;
+    private Double executivePricePerDay;
+    private String executiveBedType;
+    private Boolean executiveAc;
+
+    // Suite Room Details
+    private Integer suiteNumberOfRooms;
+    private Integer suiteMaxOccupancy;
+    private Double suitePricePerDay;
+    private String suiteBedType;
+    private Boolean suiteAc;
+
     private Boolean extraBedAvailable;
     private Boolean seasonalPricing;
-
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "room_details", columnDefinition = "jsonb")
-    private Map<String, Map<String, Object>> roomDetails;
 
     // Amenities
     @JdbcTypeCode(SqlTypes.JSON)
@@ -139,10 +161,10 @@ public class FourStarHotel {
     private String gstNumber;
 
     @Column(length = 50)
-    private String fssaiLicense;
+    private String fssaiLicenseNumber;
 
     @Column(length = 50)
-    private String tradeLicense;
+    private String tradeLicenseNumber;
 
     @Column(length = 50)
     private String panNumber;
@@ -166,6 +188,18 @@ public class FourStarHotel {
     @Column(length = 100)
     private String branch;
 
+    private String accountType;
+
+    // Documents Required
+    private String gstCertificate;
+    private String panCard;
+    private String tradeLicense;
+    private String fssaiCertificate;
+    private String fireSafetyCertificate;
+    private String starClassificationCertificate;
+    private String cancelledCheque;
+    private String hotelRoomPhotos;
+
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "uploaded_files", columnDefinition = "jsonb")
     private Map<String, Map<String, Object>> uploadedFiles;
@@ -173,17 +207,20 @@ public class FourStarHotel {
     @Column(nullable = false)
     private Boolean declarationAccepted = false;
 
-    private LocalDate declarationDate;
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String signatureImage;
 
-    @Column(length = 20)
-    private String registrationStatus = "PENDING";
+    private String uploadSignature;
+
+    private String signatoryName;
+
+    private LocalDate Date;
 
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
     private Instant updatedAt;
-
-    private LocalDate signedDate;
 
     @PrePersist
     protected void generateId() {
