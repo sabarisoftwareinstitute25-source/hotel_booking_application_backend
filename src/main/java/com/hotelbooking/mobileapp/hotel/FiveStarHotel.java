@@ -31,6 +31,9 @@ public class FiveStarHotel {
     @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id")
     private Vendor vendor;
 
+    @Column(name = "property_type", length = 50)
+    private String propertyType;
+
     // Hotel Info
     @Column(name = "hotel_name", nullable = false, length = 150)
     private String hotelName;
@@ -82,24 +85,62 @@ public class FiveStarHotel {
     @Column(name = "alternate_contact", length = 20)
     private String alternateContact;
 
+    @Column(nullable = false)
+    private String email;
+
     @Column(length = 200)
     private String website;
 
-    // JSON Fields
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "person_photo_info", columnDefinition = "jsonb")
-    private List<String> personPhotoInfo = new ArrayList<>();
+    private String profilePhoto;
 
+    // JSON Field
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "selected_room_types", columnDefinition = "jsonb")
     private List<String> selectedRoomTypes = new ArrayList<>();
 
+    // Deluxe Room
+    private Integer deluxeNoOfUnits;
+    private Integer deluxeMaxOccupancy;
+    private Boolean deluxeClimateControl;
+    private String deluxeBedType;
+    private Double deluxeMinPricePerDay;
+    private Double deluxeMaxPricePerDay;
+
+    // Club Room
+    private Integer clubNoOfUnits;
+    private Integer clubMaxOccupancy;
+    private Boolean clubClimateControl;
+    private String clubBedType;
+    private Double clubMinPricePerDay;
+    private Double clubMaxPricePerDay;
+
+    // Executive Room
+    private Integer executiveNoOfUnits;
+    private Integer executiveMaxOccupancy;
+    private Boolean executiveClimateControl;
+    private String executiveBedType;
+    private Double executiveMinPricePerDay;
+    private Double executiveMaxPricePerDay;
+
+    // Suite Room
+    private Integer suiteNoOfUnits;
+    private Integer suiteMaxOccupancy;
+    private Boolean suiteClimateControl;
+    private String suiteBedType;
+    private Double suiteMinPricePerDay;
+    private Double suiteMaxPricePerDay;
+
+    // Presidential Suite
+    private Integer presidentialNoOfUnits;
+    private Integer presidentialMaxOccupancy;
+    private Boolean presidentialClimateControl;
+    private String presidentialBedType;
+    private Double presidentialMinPricePerDay;
+    private Double presidentialMaxPricePerDay;
+
     private Boolean extraBedAvailable;
     private Boolean seasonalPricing;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "room_details", columnDefinition = "jsonb")
-    private Map<String, Map<String, Object>> roomDetails;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "room_amenities", columnDefinition = "jsonb")
@@ -139,12 +180,14 @@ public class FiveStarHotel {
     private String panNumber;
 
     @Column(length = 50)
-    private String tradeLicense;
+    private String tradeLicenseNumber;
 
     @Column(length = 50)
-    private String fssaiLicense;
+    private String fssaiLicenseNumber;
 
-    private Boolean compliance;
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "compliance", columnDefinition = "jsonb")
+    private List<String> compliance = new ArrayList<>();
 
     // Bank
     @Column(length = 150)
@@ -161,6 +204,18 @@ public class FiveStarHotel {
 
     @Column(length = 100)
     private String branch;
+
+    private String accountType;
+
+    // Documents
+    private String gstCertificate;
+    private String panCard;
+    private String tradeLicense;
+    private String fssaiCertificate;
+    private String fireSafetyNoc;
+    private String starCertification;
+    private String pollutionControlCertificate;
+
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "uploaded_files", columnDefinition = "jsonb")

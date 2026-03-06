@@ -31,7 +31,7 @@ public class FourStarHotel {
     @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id")
     private Vendor vendor;
 
-    @Column(name = "property_type", nullable = false, length = 50)
+    @Column(name = "property_type", length = 50)
     private String propertyType;
 
     @Column(name = "hotel_name", nullable = false, length = 100)
