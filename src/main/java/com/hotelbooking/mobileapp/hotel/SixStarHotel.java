@@ -45,7 +45,7 @@ public class SixStarHotel {
     private Integer yearOfEstablishment;
 
     @Column(name = "total_rooms", length = 10)
-    private String totalRooms;
+    private Integer totalRooms;
 
     @Column(name = "national_recognition", length = 150)
     private String nationalRecognition;
@@ -160,7 +160,7 @@ public class SixStarHotel {
     @Column(nullable = false)
     private LocalTime standardCheckOutTime;
 
-    private Boolean earlyCheckInLateCheckOut;
+    private String earlyCheckInLateCheckOut;
     private Boolean diplomaticProtocols;
     private Boolean petService;
 

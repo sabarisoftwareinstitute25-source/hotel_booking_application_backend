@@ -42,10 +42,10 @@ public class FiveStarHotel {
     private String hotelType;
 
     @Column(name = "year_of_establishment", length = 4)
-    private String yearOfEstablishment;
+    private Integer yearOfEstablishment;
 
     @Column(name = "total_rooms", length = 10)
-    private String totalRooms;
+    private Integer totalRooms;
 
     @Column(name = "star_classification_no", length = 50)
     private String starClassificationNo;
@@ -169,7 +169,7 @@ public class FiveStarHotel {
     @Column(nullable = false)
     private LocalTime standardCheckOutTime;
 
-    private Boolean earlyCheckInLateCheckout;
+    private String earlyCheckInLateCheckout;
     private Boolean petsAllowed;
 
     // Legal

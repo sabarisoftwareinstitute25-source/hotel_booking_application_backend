@@ -55,7 +55,7 @@ public class VillaRegistration {
     private String googleMapLocation;
 
     // Property Details
-    private String typeOfProperty;
+    private String typeOfVilla;
     private String customPropertyType;
     private Integer bedrooms;
     private Integer bathrooms;
@@ -76,21 +76,23 @@ public class VillaRegistration {
     private List<String> otherAmenities = new ArrayList<>();
 
     // Pricing
-    private BigDecimal basePrice;
-    private BigDecimal weekendPrice;
-    private BigDecimal peakSeasonPrice;
-    private BigDecimal securityDeposit;
+    private Double basePrice;
+    private Double weekendPrice;
+    private Double peakSeasonPrice;
+    private Double securityDeposit;
     private Integer minimumStay;
 
     private LocalTime checkInTime;
     private LocalTime checkOutTime;
 
     private String cancellationPolicy;
+    private String availabilityCalender;
 
     // Documents
     private String propertyOwnershipProof;
     private String idProof;
-    private String tradeLicense;
+    private String gstNumber;
+    private String tradeLicenseNumber;
 
     // Bank
     private String accountHolderName;
@@ -105,6 +107,7 @@ public class VillaRegistration {
     private String interiorPhotos;
     private String bedroomPhotos;
     private String bathroomPhotos;
+    private String amenitiesPhotos;
     private String shortVideo;
 
     // Terms

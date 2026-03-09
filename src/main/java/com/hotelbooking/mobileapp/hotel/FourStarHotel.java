@@ -41,10 +41,10 @@ public class FourStarHotel {
     private String hotelType;
 
     @Column(name = "year_of_establishment", length = 4)
-    private String yearOfEstablishment;
+    private Integer yearOfEstablishment;
 
     @Column(name = "total_rooms", length = 10)
-    private String totalRooms;
+    private Integer totalRooms;
 
     // Contact
     @Column(name = "owner_name", nullable = false, length = 100)
@@ -153,7 +153,7 @@ public class FourStarHotel {
     @Column(nullable = false)
     private LocalTime standardCheckOutTime;
 
-    private Boolean earlyCheckInLateCheckOut;
+    private String earlyCheckInLateCheckOut;
     private Boolean petsAllowed;
 
     // Legal

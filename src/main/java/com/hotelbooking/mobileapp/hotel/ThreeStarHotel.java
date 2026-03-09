@@ -53,11 +53,11 @@ public class ThreeStarHotel {
 
     @Size(max = 4)
     @Column(name = "year_of_establishment", length = 4)
-    private String yearOfEstablishment;
+    private Integer yearOfEstablishment;
 
     @Size(max = 10)
     @Column(name = "total_rooms", length = 10)
-    private String totalRooms;
+    private Integer totalRooms;
 
     // Step 2: Contact
     @NotBlank
@@ -168,7 +168,7 @@ public class ThreeStarHotel {
     @Column(nullable = false)
     private LocalTime standardCheckOutTime;
 
-    private Boolean earlyCheckInLateCheckOut;
+    private String earlyCheckInLateCheckOut;
 
     private Boolean petsAllowed;
 

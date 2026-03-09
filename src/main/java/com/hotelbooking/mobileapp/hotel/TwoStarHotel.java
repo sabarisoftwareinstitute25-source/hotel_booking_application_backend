@@ -44,10 +44,10 @@ public class TwoStarHotel {
     private String hotelType;
 
     @Column(length = 4)
-    private String yearOfEstablishment;
+    private Integer yearOfEstablishment;
 
     @Column(length = 10)
-    private String totalRooms;
+    private Integer totalRooms;
 
     // Step 2: Contact
     @NotBlank
@@ -118,7 +118,7 @@ public class TwoStarHotel {
     private Double deluxePricePerNight;
     private String deluxeAcOrNonAc;
 
-    private Boolean extraBedAvailable;
+    private Boolean extraBedFacility;
 
 //    @JdbcTypeCode(SqlTypes.JSON)
 //    @Column(name = "room_details", columnDefinition = "jsonb")
@@ -155,9 +155,6 @@ public class TwoStarHotel {
     private LocalTime standardCheckOutTime;
 
     private String idProofRequired;
-    private String uploadAadhaarCard;
-    private String uploadPassport;
-    private String uploadDrivingLicense;
 
     private Boolean petsAllowed;
 

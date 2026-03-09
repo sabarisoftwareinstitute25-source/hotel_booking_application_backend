@@ -68,6 +68,8 @@ public class GlobalEliteHotel {
     private String executiveEmail;
     private String website;
 
+    private String profilePhoto;
+
     // Step 3 - Accommodation
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
@@ -162,6 +164,8 @@ public class GlobalEliteHotel {
     private String ifscCode;
     private String bankCountry;
     private String settlementCurrency;
+
+    private String accountType;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")

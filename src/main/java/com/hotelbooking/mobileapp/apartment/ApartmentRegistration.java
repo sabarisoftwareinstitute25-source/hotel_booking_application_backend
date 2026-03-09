@@ -33,6 +33,9 @@ public class ApartmentRegistration {
     @JoinColumn(name = "vendor_id")
     private Vendor vendor;
 
+    @Column(name = "property_type", length = 50)
+    private String propertyType;
+
     // Basic Contact Information
     private String apartmentName;
     private String ownerName;
@@ -82,7 +85,7 @@ public class ApartmentRegistration {
     private Double weekendPrice;
     private Double peakSeasonPrice;
     private Double securityDeposit;
-    private Double minimumStay;
+    private Integer minimumStay;
     private Integer advancePayment;
     private LocalTime checkInTime;
     private LocalTime checkOutTime;
@@ -98,7 +101,7 @@ public class ApartmentRegistration {
     private String propertyOwnershipProof;
     private String idProof;
     private String gstNumber;
-    private String tradeLicense;
+    private String tradeLicenseNumber;
     private String policeVerification;
 
     // Bank Details

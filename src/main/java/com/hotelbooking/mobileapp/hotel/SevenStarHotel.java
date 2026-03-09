@@ -63,6 +63,8 @@ public class SevenStarHotel {
     private String executiveEmailChannel;
     private String officialPortfolio;
 
+    private String profilePhoto;
+
     // Global Access
     @Column(nullable = false)
     private String estateAddress;
@@ -84,6 +86,46 @@ public class SevenStarHotel {
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
     private List<String> selectRoyalResidenceTypes = new ArrayList<>();
+
+    // Imperial Chamber
+    private Integer imperialUnits;
+    private String imperialArea;
+    private Integer imperialMaxGuest;
+    private String imperialSignatureFeatures;
+    private Double imperialAvgNightlyRate;
+    private Double imperialPeakRate;
+
+    // Royal Suite
+    private Integer royalUnits;
+    private String royalArea;
+    private Integer royalMaxGuest;
+    private String royalSignatureFeatures;
+    private Double royalAvgNightlyRate;
+    private Double royalPeakRate;
+
+    // Crown Residence
+    private Integer crownUnits;
+    private String crownArea;
+    private Integer crownMaxGuest;
+    private String crownSignatureFeatures;
+    private Double crownAvgNightlyRate;
+    private Double crownPeakRate;
+
+    // Presidential Palace Suite
+    private Integer presidentialUnits;
+    private String presidentialArea;
+    private Integer presidentialMaxGuest;
+    private String presidentialSignatureFeatures;
+    private Double presidentialAvgNightlyRate;
+    private Double presidentialPeakRate;
+
+    // Private Kingdom Villa
+    private Integer villaUnits;
+    private String villaArea;
+    private Integer villaMaxGuest;
+    private String villaSignatureFeatures;
+    private Double villaAvgNightlyRate;
+    private Double villaPeakRate;
 
     private String pricingIntelligenceEngine;
 
@@ -129,8 +171,9 @@ public class SevenStarHotel {
     private String globalBankInstitution;
 
     private String accountNumber;
-    private String ifsc;
+    private String iban;
     private String settlementCurrency;
+    private String accountType;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")

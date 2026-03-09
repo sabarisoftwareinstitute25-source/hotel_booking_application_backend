@@ -33,6 +33,9 @@ public class ResortRegistration {
     @JoinColumn(name = "vendor_id")
     private Vendor vendor;
 
+    @Column(name = "property_type", length = 50)
+    private String propertyType;
+
     // Basic Information
     private String resortName;
     private String ownerName;
@@ -104,8 +107,8 @@ public class ResortRegistration {
     // Legal
     private String businessRegistrationCertificate;
     private String gstNumber;
-    private String tradeLicense;
-    private String fssaiLicense;
+    private String tradeLicenseNumber;
+    private String fssaiLicenseNumber;
     private String idProof;
     private String resortOwnership;
     private String fireSafetyCertificate;
@@ -122,15 +125,9 @@ public class ResortRegistration {
     private String cancelledCheque;
 
     // Media
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "jsonb")
-    private List<String> resortExteriorPhotos = new ArrayList<>();
-
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(columnDefinition = "jsonb")
-    private List<String> roomPhotos = new ArrayList<>();
-
+    private String resortExteriorPhotos;
     private String lobbyPhoto;
+    private String roomsPhotos;
     private String poolPhoto;
     private String restaurantPhotos;
     private String shortPromotionalVideo;
