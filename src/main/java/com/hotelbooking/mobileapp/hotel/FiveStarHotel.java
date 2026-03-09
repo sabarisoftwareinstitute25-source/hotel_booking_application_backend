@@ -215,7 +215,8 @@ public class FiveStarHotel {
     private String fireSafetyNoc;
     private String starCertification;
     private String pollutionControlCertificate;
-
+    private String cancelledCheque;
+    private String property;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "uploaded_files", columnDefinition = "jsonb")
@@ -224,21 +225,20 @@ public class FiveStarHotel {
     @Column(nullable = false)
     private Boolean declarationAccepted = false;
 
-    private LocalDate declarationDate;
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String signatureImage;
 
-    @Column(length = 20)
-    private String registrationStatus;
+    private String uploadSignature;
+
+    private String signatoryName;
+
+    private LocalDate date;
 
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
     private Instant updatedAt;
-
-    private LocalDate signedDate;
-
-    @Lob
-    @Column(columnDefinition = "TEXT")
-    private String signatureImage;
 
 
     @PrePersist

@@ -30,6 +30,9 @@ public class SevenStarHotel {
     @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id")
     private Vendor vendor;
 
+    @Column(name = "property_type", length = 50)
+    private String propertyType;
+
     // Step 1
     @Column(nullable = false)
     private String palaceName;
@@ -126,7 +129,7 @@ public class SevenStarHotel {
     private String globalBankInstitution;
 
     private String accountNumber;
-    private String swift;
+    private String ifsc;
     private String settlementCurrency;
 
     @JdbcTypeCode(SqlTypes.JSON)
@@ -137,6 +140,15 @@ public class SevenStarHotel {
     @Column(columnDefinition = "jsonb")
     private List<String> integrationCapabilities = new ArrayList<>();
 
+    // Credentials Upload
+    private String royalAuthorizationCertificate;
+    private String estateOwnershipProof;
+    private String internationalSecurityCertificate;
+    private String insuranceCoveragePortfolio;
+    private String accreditationProofs;
+    private String financialVerificationLetter;
+    private String ultraHdEstatePortfolio;
+
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
     private Map<String, Map<String, Object>> uploadedFiles;
@@ -144,21 +156,20 @@ public class SevenStarHotel {
     @Column(nullable = false)
     private Boolean declarationAccepted = false;
 
-    private LocalDate declarationDate;
-    private String registrationStatus = "PENDING";
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String signatureImage;
+
+    private String authorizedAuthority;
+
+    private String title;
+
+    private LocalDate date;
 
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
     private Instant updatedAt;
-
-    private String authorizedAuthority;
-    private String title;
-    private LocalDate signedDate;
-
-    @Lob
-    @Column(columnDefinition = "TEXT")
-    private String signatureImage;
 
     @PrePersist
     protected void generateId() {

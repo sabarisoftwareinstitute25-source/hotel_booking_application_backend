@@ -34,6 +34,9 @@ public class VillaRegistration {
     @JoinColumn(name = "vendor_id")
     private Vendor vendor;
 
+    @Column(name = "property_type", length = 50)
+    private String propertyType;
+
     // Basic Info
     private String villaName;
     private String ownerName;

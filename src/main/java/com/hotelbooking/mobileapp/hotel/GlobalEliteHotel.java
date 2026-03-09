@@ -30,6 +30,9 @@ public class GlobalEliteHotel {
     @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id")
     private Vendor vendor;
 
+    @Column(name = "property_type", length = 50)
+    private String propertyType;
+
     // Step 1 - Property Overview
     @Column(nullable = false)
     private String propertyName;
@@ -70,6 +73,46 @@ public class GlobalEliteHotel {
     @Column(columnDefinition = "jsonb")
     private List<String> selectAccommodationCategories = new ArrayList<>();
 
+    // Luxury Rooms
+    private Integer luxuryUnits;
+    private String luxurySize;
+    private Integer luxuryMaxOccupancy;
+    private String luxuryBedType;
+    private Double luxuryAvgNightlyRate;
+    private Double luxuryPeakRate;
+
+    // Club Suite
+    private Integer clubUnits;
+    private String clubSize;
+    private Integer clubMaxOccupancy;
+    private String clubBedType;
+    private Double clubAvgNightlyRate;
+    private Double clubPeakRate;
+
+    // Royal Suite
+    private Integer royalUnits;
+    private String royalSize;
+    private Integer royalMaxOccupancy;
+    private String royalBedType;
+    private Double royalAvgNightlyRate;
+    private Double royalPeakRate;
+
+    // Presidential Suite
+    private Integer presidentialUnits;
+    private String presidentialSize;
+    private Integer presidentialOccupancy;
+    private String presidentialBedType;
+    private Double presidentialAvgNightlyRate;
+    private Double presidentialPeakRate;
+
+    // Villa
+    private Integer villaUnits;
+    private String villaSize;
+    private Integer villaMaxOccupancy;
+    private String villaBedType;
+    private Double villaAvgNightlyRate;
+    private Double villaPeakRate;
+
     private String rateEngineType;
 
     // Step 4 - Luxury Features
@@ -105,7 +148,7 @@ public class GlobalEliteHotel {
 
     // Step 5 - Compliance & Banking
     @Column(nullable = false)
-    private String taxId;
+    private String gst;
 
     private String internationalComplianceStandard;
     private Boolean safetyCertification;
@@ -116,13 +159,22 @@ public class GlobalEliteHotel {
     private String accountName;
     private String bankName;
     private String accountNumber;
-    private String swiftCode;
+    private String ifscCode;
     private String bankCountry;
     private String settlementCurrency;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
     private List<String> integrationCapabilities = new ArrayList<>();
+
+    // Documentation Upload
+    private String businessRegistrationCertificate;
+    private String luxuryAccreditationProof;
+    private String insuranceCoverageDocument;
+    private String safetyCertifications;
+    private String bankVerificationLetter;
+    private String propertyPortfolio;
+    private String highResolutionPropertyVisuals;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb")
@@ -131,21 +183,20 @@ public class GlobalEliteHotel {
     @Column(nullable = false)
     private Boolean declarationAccepted = false;
 
-    private LocalDate declarationDate;
-    private String registrationStatus = "PENDING";
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String signatureImage;
+
+    private String authorizedSignatureName;
+
+    private String title;
+
+    private LocalDate date;
 
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
     private Instant updatedAt;
-
-    private String authorizedSignatureName;
-    private String title;
-    private LocalDate signedDate;
-
-    @Lob
-    @Column(columnDefinition = "TEXT")
-    private String signatureImage;
 
     @PrePersist
     protected void generateId() {

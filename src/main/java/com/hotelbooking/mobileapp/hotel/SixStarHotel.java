@@ -31,6 +31,9 @@ public class SixStarHotel {
     @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id")
     private Vendor vendor;
 
+    @Column(name = "property_type", length = 50)
+    private String propertyType;
+
     // Hotel Info
     @Column(name = "hotel_name", nullable = false, length = 150)
     private String hotelName;
@@ -39,7 +42,7 @@ public class SixStarHotel {
     private String hotelType;
 
     @Column(name = "year_of_establishment", length = 4)
-    private String yearOfEstablishment;
+    private Integer yearOfEstablishment;
 
     @Column(name = "total_rooms", length = 10)
     private String totalRooms;
@@ -87,10 +90,10 @@ public class SixStarHotel {
     private String city;
 
     @Column(length = 100)
-    private String district;
-
-    @Column(length = 100)
     private String state;
+
+    @Column(nullable = false)
+    private String country;
 
     @Column(name = "pin_code", length = 10)
     private String pinCode;
@@ -169,12 +172,14 @@ public class SixStarHotel {
     private String panNumber;
 
     @Column(length = 50)
-    private String tradeLicense;
+    private String tradeLicenseNumber;
 
     @Column(length = 50)
-    private String fssaiLicense;
+    private String fssaiLicenseNumber;
 
-    private Boolean compliance;
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "compliance", columnDefinition = "jsonb")
+    private List<String> compliance = new ArrayList<>();
 
     // Bank
     @Column(length = 150)
@@ -192,6 +197,20 @@ public class SixStarHotel {
     @Column(length = 100)
     private String branch;
 
+    private String accountType;
+
+    // Documents Required
+    private String gstCertificate;
+    private String panCard;
+    private String tradeLicense;
+    private String fssaiLicense;
+    private String fireSafety;
+    private String environmentalCertificate;
+    private String internationalSafety;
+    private String luxuryBrand;
+    private String cancelledCheque;
+    private String highResolutionProperty;
+
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "uploaded_files", columnDefinition = "jsonb")
     private Map<String, Map<String, Object>> uploadedFiles;
@@ -199,21 +218,20 @@ public class SixStarHotel {
     @Column(nullable = false)
     private Boolean declarationAccepted = false;
 
-    private LocalDate declarationDate;
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    private String signatureImage;
 
-    @Column(length = 20)
-    private String registrationStatus = "PENDING";
+    private String signatoryName;
+
+    private LocalDate date;
 
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
     private Instant updatedAt;
-    private String signatureName;
-    private LocalDate signedDate;
 
-    @Lob
-    @Column(columnDefinition = "TEXT")
-    private String signatureImage;
+
 
     @PrePersist
     protected void generateId() {

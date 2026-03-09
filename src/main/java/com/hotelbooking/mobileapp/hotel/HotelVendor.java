@@ -40,10 +40,10 @@ public class HotelVendor {
     private String hotelType;
 
     @Column(name = "year_of_establishment", length = 4)
-    private String yearOfEstablishment;
+    private Integer yearOfEstablishment;
 
     @Column(name = "total_rooms", length = 10)
-    private String totalRooms;
+    private Integer totalRooms;
 
     // Contact
     private String profilePhoto;
@@ -144,10 +144,10 @@ public class HotelVendor {
     private Boolean executiveExtraBedAvailable;
 
     @Column(name = "min_price", length = 20)
-    private String minPrice;
+    private Double minPrice;
 
     @Column(name = "max_price", length = 20)
-    private String maxPrice;
+    private Double maxPrice;
 
     private Boolean extraBedAvailable;
 
@@ -174,9 +174,9 @@ public class HotelVendor {
 
     // Legal
     private String gstNumber;
-    private String fssaiLicense;
+    private String fssaiLicenseNumber;
     private String tradeLicenseNumber;
-    private String aadharNumber;
+    private String aadhaarNumber;
 
     // Bank
     @NotBlank
