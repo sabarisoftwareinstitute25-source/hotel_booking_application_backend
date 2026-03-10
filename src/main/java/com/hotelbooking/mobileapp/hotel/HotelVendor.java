@@ -10,6 +10,7 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Getter
@@ -143,11 +144,11 @@ public class HotelVendor {
     private String executiveAcOrNonAc;
     private Boolean executiveExtraBedAvailable;
 
-    @Column(name = "min_price", length = 20)
-    private Double minPrice;
+    @Column(name = "min_tariff", length = 20)
+    private Double minTariff;
 
-    @Column(name = "max_price", length = 20)
-    private Double maxPrice;
+    @Column(name = "max_tariff", length = 20)
+    private Double maxTariff;
 
     private Boolean extraBedAvailable;
 
@@ -218,7 +219,7 @@ public class HotelVendor {
     private String uploadSignature;
 
     private String declarationName;
-    private Instant declarationDate;
+    private LocalDateTime declarationDate;
 
 
     @Column(nullable = false, updatable = false)
