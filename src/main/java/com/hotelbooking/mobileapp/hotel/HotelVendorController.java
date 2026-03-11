@@ -1,6 +1,6 @@
 package com.hotelbooking.mobileapp.hotel;
 
-import com.hotelbooking.mobileapp.dto.NormalHotelVendorProfileDTO;
+import com.hotelbooking.mobileapp.dto.NormalHotelProfileDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +37,7 @@ public class HotelVendorController {
     }
 
     @GetMapping("/profile/{hotelId}")
-    public NormalHotelVendorProfileDTO getProfile(@PathVariable String hotelId) {
+    public NormalHotelProfileDTO getProfile(@PathVariable String hotelId) {
         return service.getHotelProfile(hotelId);
     }
 }

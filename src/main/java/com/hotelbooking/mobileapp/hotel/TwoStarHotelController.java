@@ -1,6 +1,6 @@
 package com.hotelbooking.mobileapp.hotel;
 
-import lombok.RequiredArgsConstructor;
+import com.hotelbooking.mobileapp.dto.TwoStarHotelProfileDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +22,7 @@ public class TwoStarHotelController {
         return ResponseEntity.ok(service.saveHotel(hotel));
     }
 
-    // Get All
+    // Get All Hotels
     @GetMapping
     public ResponseEntity<List<TwoStarHotel>> getAllHotels() {
         return ResponseEntity.ok(service.getAllHotels());
@@ -41,5 +41,11 @@ public class TwoStarHotelController {
     public ResponseEntity<String> deleteHotel(@PathVariable String hotelId) {
         service.deleteHotel(hotelId);
         return ResponseEntity.ok("Deleted Successfully");
+    }
+
+    // GET HOTEL PROFILE
+    @GetMapping("/profile/{hotelId}")
+    public ResponseEntity<TwoStarHotelProfileDTO> getProfile(@PathVariable String hotelId) {
+        return ResponseEntity.ok(service.getHotelProfile(hotelId));
     }
 }

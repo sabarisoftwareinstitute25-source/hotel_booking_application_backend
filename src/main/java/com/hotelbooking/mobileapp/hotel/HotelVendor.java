@@ -90,6 +90,9 @@ public class HotelVendor {
     @Column(name = "state", nullable = false, length = 50)
     private String state;
 
+    @Column(nullable = false)
+    private String country;
+
     @NotBlank
     @Column(name = "pin_code", nullable = false, length = 6)
     private String pinCode;

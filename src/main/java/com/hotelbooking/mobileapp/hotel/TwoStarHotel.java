@@ -10,7 +10,6 @@ import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -91,6 +90,9 @@ public class TwoStarHotel {
 
     @Column(length = 50)
     private String state;
+
+    @Column(length = 50)
+    private String country;
 
     @Column(length = 6)
     private String pinCode;

@@ -1,6 +1,6 @@
 package com.hotelbooking.mobileapp.hotel;
 
-import com.hotelbooking.mobileapp.dto.NormalHotelVendorProfileDTO;
+import com.hotelbooking.mobileapp.dto.NormalHotelProfileDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,12 +34,12 @@ public class HotelVendorService {
     }
 
     // GET FULL HOTEL PROFILE
-    public NormalHotelVendorProfileDTO getHotelProfile(String hotelId) {
+    public NormalHotelProfileDTO getHotelProfile(String hotelId) {
 
         HotelVendor hotel = repository.findById(hotelId)
                 .orElseThrow(() -> new RuntimeException("Hotel not found"));
 
-        NormalHotelVendorProfileDTO dto = new NormalHotelVendorProfileDTO();
+        NormalHotelProfileDTO dto = new NormalHotelProfileDTO();
 
         dto.setHotelId(hotel.getHotelId());
         dto.setPropertyType(hotel.getPropertyType());
