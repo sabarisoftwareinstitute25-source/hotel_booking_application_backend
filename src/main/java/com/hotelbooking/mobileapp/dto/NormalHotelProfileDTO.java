@@ -123,7 +123,7 @@ public class NormalHotelProfileDTO {
 
     private String bankName;
 
-    private String accountNumber;
+    private Integer accountNumber;
 
     private String ifscCode;
 

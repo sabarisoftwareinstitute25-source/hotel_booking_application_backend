@@ -1,5 +1,6 @@
 package com.hotelbooking.mobileapp.hotel;
 
+import com.hotelbooking.mobileapp.dto.ThreeStarHotelProfileDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,5 +42,12 @@ public class ThreeStarHotelController {
     public ResponseEntity<String> deleteHotel(@PathVariable String hotelId) {
         service.deleteHotel(hotelId);
         return ResponseEntity.ok("Deleted Successfully");
+    }
+
+    // Get Full Profile
+    @GetMapping("/profile/{hotelId}")
+    public ThreeStarHotelProfileDTO getHotelProfile(@PathVariable String hotelId) {
+
+        return service.getHotelProfile(hotelId);
     }
 }

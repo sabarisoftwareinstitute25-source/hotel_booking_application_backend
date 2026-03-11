@@ -9,7 +9,6 @@ import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -34,8 +33,8 @@ public class VillaRegistration {
     @JoinColumn(name = "vendor_id")
     private Vendor vendor;
 
-    @Column(name = "property_type", length = 50)
-    private String propertyType;
+    @Column(nullable = false, length = 50)
+    private String propertyType = "Villa";
 
     // Basic Info
     private String villaName;
@@ -147,6 +146,11 @@ public class VillaRegistration {
             this.villaId =
                     BeanUtil.getBean(IdGeneratorService.class)
                             .generateMonthlyId("EIHV", 4, existingIds);
+        }
+
+        // Auto set property type if null
+        if (this.propertyType == null || this.propertyType.isBlank()) {
+            this.propertyType = "Villa";
         }
 
         this.createdAt = Instant.now();

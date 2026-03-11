@@ -4,16 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hotelbooking.mobileapp.util.BeanUtil;
 import com.hotelbooking.mobileapp.util.IdGeneratorService;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.hibernate.validator.constraints.URL;
 
 import java.time.Instant;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +27,7 @@ import java.util.Map;
 public class ThreeStarHotel {
 
     @Id
-    @Column(nullable = false, length = 16)
+    @Column(nullable = false, length = 14)
     private String hotelId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,82 +35,75 @@ public class ThreeStarHotel {
     private Vendor vendor;
 
     // Property Type
-    @NotBlank
-    @Size(max = 50)
-    @Column(name = "property_type", nullable = false, length = 50)
-    private String propertyType;
+    @Column(nullable = false, length = 50)
+    private String propertyType = "Hotel";
 
     // Step 1: Hotel Info
-    @NotBlank
-    @Size(max = 50)
-    @Column(name = "hotel_name", nullable = false, length = 50)
+    @NotBlank(message = "Hotel name is required")
+    @Size(max = 50, message = "Hotel name must not exceed 50 characters")
+    @Column(length = 50)
     private String hotelName;
 
-    @Size(max = 50)
-    @Column(name = "hotel_type", length = 50)
+    @Column(name = "hotel_type")
     private String hotelType;
 
-    @Size(max = 4)
-    @Column(name = "year_of_establishment", length = 4)
+    @Column(name = "year_of_establishment" , length = 4)
     private Integer yearOfEstablishment;
 
-    @Size(max = 10)
-    @Column(name = "total_rooms", length = 10)
+    @Positive(message = "Total rooms must be positive")
+    @Column(name = "total_rooms")
     private Integer totalRooms;
 
+    private String registrationNumber;
+
     // Step 2: Contact
-    @NotBlank
-    @Size(max = 50)
-    @Column(name = "owner_name", nullable = false, length = 50)
+    @NotBlank(message = "Owner name is required")
+    @Size(min = 3, max = 50)
     private String ownerName;
 
-    @NotBlank
-    @Size(max = 100)
-    @Column(name = "designation", nullable = false, length = 100)
+    @Column(length = 50)
     private String designation;
 
-    @NotBlank
-    @Column(name = "mobile_number", nullable = false, length = 20)
+    @NotBlank(message = "Mobile number is required")
+    @Column(nullable = false, length = 15)
     private String mobileNumber;
 
-    @Column(name = "alternate_contact", length = 20)
     private String alternateContact;
 
-    @Email
+    @Email(message = "Invalid email format")
     @Column(name = "email", length = 50)
     private String email;
 
-    @Column(name = "website", length = 250)
+    @URL(message = "Invalid URL")
     private String website;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "person_photo_info", columnDefinition = "jsonb")
-    private List<String> personPhotoInfo = new ArrayList<>();
+    private String profilePhoto;
 
     // Address
-    @NotBlank
-    @Column(name = "address_line1", nullable = false, length = 250)
+    @NotBlank(message = "Address Line 1 is required")
+    @Column(name = "address_line1", nullable = false)
     private String addressLine1;
 
-    @Column(name = "address_line2", length = 250)
+    @Column(length = 150)
     private String addressLine2;
 
     private Boolean isPrimary = true;
 
-    @NotBlank
-    @Column(length = 50)
+    @NotBlank(message = "City is required")
     private String city;
 
-    @NotBlank
-    @Column(length = 50)
+    @NotBlank(message = "District is required")
     private String district;
 
-    @NotBlank
-    @Column(length = 50)
+    @NotBlank(message = "State is required")
     private String state;
 
-    @NotBlank
-    @Column(name = "pin_code", length = 10)
+    @NotBlank(message = "Country is required")
+    private String country;
+
+    @NotBlank(message = "Pin code is required")
+    @Size(min = 3, max = 10, message = "Invalid pin code")
+    @Column(name = "pin_code", nullable = false)
     private String pinCode;
 
     // Room Configuration
@@ -120,22 +112,25 @@ public class ThreeStarHotel {
     private List<String> selectedRoomTypes = new ArrayList<>();
 
     //====Standard=====
+    @Positive
     private Integer standardNumberOfRooms;
-    private String standardMaxOccupancy;
+    private Integer standardMaxOccupancy;
     private Boolean standardAc;
     private String standardBedType;
     private Double standardPricePerDay;
 
     //======Deluxe========
+    @Positive
     private Integer deluxeNumberOfRooms;
-    private String deluxeMaxOccupancy;
+    private Integer deluxeMaxOccupancy;
     private Boolean deluxeAc;
     private String deluxeBedType;
     private Double deluxePricePerDay;
 
     //======Suite======
+    @Positive
     private Integer suiteNumberOfRooms;
-    private String suiteMaxOccupancy;
+    private Integer suiteMaxOccupancy;
     private Boolean suiteAc;
     private String suiteBedType;
     private Double suitePricePerDay;
@@ -168,46 +163,43 @@ public class ThreeStarHotel {
     @Column(nullable = false)
     private LocalTime standardCheckOutTime;
 
-    private String earlyCheckInLateCheckOut;
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "early_checkIn_late_checkOut", columnDefinition = "jsonb")
+    private List<String> earlyCheckInLateCheckOut = new ArrayList<>();
 
     private Boolean petsAllowed;
 
     // Legal
-    @Column(length = 50, nullable = false)
+    @Size(max = 30, message = "Invalid GST number length")
     private String gstNumber;
 
-    @Column(length = 50)
+    @Size(max = 30, message = "Invalid FSSAI license number length")
     private String fssaiLicenseNumber;
 
-    @Column(length = 50)
+    @Size(max = 30, message = "Invalid trade license number")
     private String tradeLicenseNumber;
 
-    @Column(length = 50)
+    @Column(length = 10)
     private String panNumber;
 
     private Boolean fireSafety;
 
     // Bank Details
-    @NotBlank
-    @Column(length = 50, nullable = false)
+    @NotBlank(message = "Account holder name is required")
     private String accountHolderName;
 
-    @NotBlank
-    @Column(length = 50, nullable = false)
+    @NotBlank(message = "Bank name is required")
     private String bankName;
 
-    @NotBlank
-    @Column(length = 50, nullable = false)
-    private String accountNumber;
+    @NotBlank(message = "Account number is required")
+    private Integer accountNumber;
 
-    @NotBlank
-    @Column(length = 50, nullable = false)
+    @NotBlank(message = "IFSC code is required")
     private String ifscCode;
 
-    @NotBlank
-    @Column(length = 50)
     private String branch;
 
+    @NotBlank(message = "Account type is required")
     private String accountType;
 
     // Document Required
@@ -232,11 +224,9 @@ public class ThreeStarHotel {
 
     private String uploadSignature;
 
-    private LocalDate declarationDate;
+    private LocalDateTime declarationDate;
 
     private String signatoryName;
-
-    private LocalDate Date;
 
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
@@ -255,6 +245,11 @@ public class ThreeStarHotel {
             this.hotelId =
                     BeanUtil.getBean(IdGeneratorService.class)
                             .generateMonthlyId("EIH3", 4, existingIds);
+        }
+
+        // Auto set property type if null
+        if (this.propertyType == null || this.propertyType.isBlank()) {
+            this.propertyType = "Hotel";
         }
 
         if (this.createdAt == null) {

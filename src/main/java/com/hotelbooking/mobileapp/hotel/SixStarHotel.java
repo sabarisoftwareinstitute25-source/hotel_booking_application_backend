@@ -31,9 +31,8 @@ public class SixStarHotel {
     @JoinColumn(name = "vendor_id", referencedColumnName = "vendor_id")
     private Vendor vendor;
 
-    @Column(name = "property_type", length = 50)
-    private String propertyType;
-
+    @Column(nullable = false, length = 50)
+    private String propertyType = "Hotel";
     // Hotel Info
     @Column(name = "hotel_name", nullable = false, length = 150)
     private String hotelName;
@@ -245,6 +244,11 @@ public class SixStarHotel {
             this.hotelId =
                     BeanUtil.getBean(IdGeneratorService.class)
                             .generateMonthlyId("EIH6", 4, existingIds);
+        }
+
+        // Auto set property type if null
+        if (this.propertyType == null || this.propertyType.isBlank()) {
+            this.propertyType = "Hotel";
         }
 
         if (this.createdAt == null) {

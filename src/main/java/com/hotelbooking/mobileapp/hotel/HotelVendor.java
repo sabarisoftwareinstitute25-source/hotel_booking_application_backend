@@ -8,6 +8,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.hibernate.validator.constraints.URL;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -21,7 +22,7 @@ import java.util.*;
 public class HotelVendor {
 
     @Id
-    @Column(nullable = false, length = 16)
+    @Column(nullable = false, length = 14)
     private String hotelId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -29,72 +30,70 @@ public class HotelVendor {
     private Vendor vendor;
 
     // Property
-    @NotBlank
-    @Column(name = "property_type", nullable = false, length = 50)
-    private String propertyType;
+    private String propertyType = "Hotel";
 
-    @NotBlank
-    @Column(name = "hotel_name", nullable = false, length = 50)
+    @NotBlank(message = "Hotel name is required")
+    @Size(max = 50, message = "Hotel name must not exceed 50 characters")
+    @Column(length = 50)
     private String hotelName;
 
-    @Column(name = "hotel_type", length = 50)
+    @Column(name = "hotel_type")
     private String hotelType;
 
     @Column(name = "year_of_establishment", length = 4)
     private Integer yearOfEstablishment;
 
-    @Column(name = "total_rooms", length = 10)
+    @Positive(message = "Total rooms must be positive")
+    @Column(name = "total_rooms")
     private Integer totalRooms;
 
     // Contact
     private String profilePhoto;
 
-    @NotBlank
-    @Column(name = "owner_name", nullable = false, length = 50)
+    @NotBlank(message = "Owner name is required")
+    @Size(min = 3, max = 50)
     private String ownerName;
 
-    @NotBlank
-    @Column(name = "mobile_number", nullable = false, length = 20)
+    @NotBlank(message = "Mobile number is required")
+    @Column(name = "mobile_number", nullable = false)
     private String mobileNumber;
 
-    @Column(name = "alternate_contact", length = 20)
     private String alternateContact;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "landline_numbers", columnDefinition = "jsonb")
-    private List<String> landlineNumbers = new ArrayList<>();
+    private List<String> landlineNumbers;
 
-    @Email
+    @Email(message = "Invalid email format")
     @Column(name = "email", length = 50)
     private String email;
 
-    @Column(name = "website", length = 250)
+    @URL(message = "Invalid URL")
     private String website;
 
     // Address
-    @NotBlank
-    @Column(name = "address_line1", nullable = false, length = 100)
+    @NotBlank(message = "Address Line 1 is required")
+    @Column(name = "address_line1", nullable = false)
     private String addressLine1;
 
-    @Column(name = "address_line2", length = 100)
+    @Column(name = "address_line2")
     private String addressLine2;
 
-    @NotBlank
-    @Column(name = "city", nullable = false, length = 50)
+    @NotBlank(message = "City is required")
     private String city;
 
-    @Column(name = "district", length = 50)
+    @NotBlank(message = "District is required")
     private String district;
 
-    @NotBlank
-    @Column(name = "state", nullable = false, length = 50)
+    @NotBlank(message = "State is required")
     private String state;
 
-    @Column(nullable = false)
+    @NotBlank(message = "Country is required")
     private String country;
 
-    @NotBlank
-    @Column(name = "pin_code", nullable = false, length = 6)
+    @NotBlank(message = "Pin code is required")
+    @Size(min = 3, max = 10, message = "Invalid pin code")
+    @Column(name = "pin_code", nullable = false)
     private String pinCode;
 
     @Column(name = "landmark", length = 250)
@@ -102,10 +101,11 @@ public class HotelVendor {
 
     // Rooms
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "selected_room_types", columnDefinition = "jsonb")
+    @Column(columnDefinition = "jsonb")
     private List<String> selectedRoomTypes = new ArrayList<>();
 
     // Single Room Details
+    @Positive
     private Integer singleNumberOfRooms;
     private Integer singleMaxOccupancy;
     private Double singlePricePerNight;
@@ -113,6 +113,7 @@ public class HotelVendor {
     private Boolean singleExtraBedAvailable;
 
     // Double Room Details
+    @Positive
     private Integer doubleNumberOfRooms;
     private Integer doubleMaxOccupancy;
     private Double doublePricePerNight;
@@ -120,13 +121,15 @@ public class HotelVendor {
     private Boolean doubleExtraBedAvailable;
 
     // Deluxe Room Details
+    @Positive
     private Integer deluxeNumberOfRooms;
     private Integer deluxeMaxOccupancy;
     private Double deluxePricePerNight;
     private String deluxeAcOrNonAc;
     private Boolean deluxeExtraBedAvailable;
 
-    // Suite Room Details
+    // Suite Room Detail
+    @Positive
     private Integer suiteNumberOfRooms;
     private Integer suiteMaxOccupancy;
     private Double suitePricePerNight;
@@ -134,6 +137,7 @@ public class HotelVendor {
     private Boolean suiteExtraBedAvailable;
 
     // Family Room Details
+    @Positive
     private Integer familyNumberOfRooms;
     private Integer familyMaxOccupancy;
     private Double familyPricePerNight;
@@ -141,16 +145,17 @@ public class HotelVendor {
     private Boolean familyExtraBedAvailable;
 
     // Executive Room Details
+    @Positive
     private Integer executiveNumberOfRooms;
     private Integer executiveMaxOccupancy;
     private Double executivePricePerNight;
     private String executiveAcOrNonAc;
     private Boolean executiveExtraBedAvailable;
 
-    @Column(name = "min_tariff", length = 20)
+    @Positive(message = "Minimum tariff must be positive")
     private Double minTariff;
 
-    @Column(name = "max_tariff", length = 20)
+    @Positive(message = "Maximum tariff must be positive")
     private Double maxTariff;
 
     private Boolean extraBedAvailable;
@@ -161,43 +166,50 @@ public class HotelVendor {
     private List<String> basicAmenities = new ArrayList<>();
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "hotel_facilities", columnDefinition = "jsonb")
+    @Column(name = "hotel_facilities" , columnDefinition = "jsonb")
     private List<String> hotelFacilities = new ArrayList<>();
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "food_services", columnDefinition = "jsonb")
+    @Column(name = "food_services" , columnDefinition = "jsonb")
     private List<String> foodServices = new ArrayList<>();
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "additional_amenities", columnDefinition = "jsonb")
+    @Column(name = "additional_amenities" , columnDefinition = "jsonb")
     private List<String> additionalAmenities = new ArrayList<>();
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "custom_amenities", columnDefinition = "jsonb")
+    @Column(name = "custom_amenities" , columnDefinition = "jsonb")
     private List<String> customAmenities = new ArrayList<>();
 
     // Legal
+    @Size(max = 30, message = "Invalid GST number length")
     private String gstNumber;
+
+    @Size(max = 30, message = "Invalid FSSAI license number length")
     private String fssaiLicenseNumber;
+
+    @Size(max = 30, message = "Invalid trade license number")
     private String tradeLicenseNumber;
+
+    @Size(max = 20, message = "Invalid ID number")
     private String aadhaarNumber;
 
     // Bank
-    @NotBlank
+    @NotBlank(message = "Account holder name is required")
     private String accountHolderName;
 
-    @NotBlank
+    @NotBlank(message = "Bank name is required")
     private String bankName;
 
-    @NotBlank
-    private String accountNumber;
+    @NotBlank(message = "Account number is required")
+    private Integer accountNumber;
 
-    @NotBlank
+    @NotBlank(message = "IFSC code is required")
     private String ifscCode;
 
     private String branch;
 
-    @Column(name = "account_type", nullable = false)
+    @NotBlank(message = "Account type is required")
     private String accountType; // SAVINGS / CURRENT
 
     // Documents Required
@@ -209,7 +221,7 @@ public class HotelVendor {
     private String ownerIdProof;
 
     @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "uploaded_files", columnDefinition = "jsonb")
+    @Column(columnDefinition = "jsonb")
     private Map<String, Map<String, Object>> uploadedFiles = new HashMap<>();
 
     @Column(nullable = false)
@@ -242,6 +254,11 @@ public class HotelVendor {
             this.hotelId =
                     BeanUtil.getBean(IdGeneratorService.class)
                             .generateMonthlyId("EIHN", 4, existingIds);
+        }
+
+        // Auto set property type if null
+        if (this.propertyType == null || this.propertyType.isBlank()) {
+            this.propertyType = "Hotel";
         }
 
         if (this.createdAt == null) {

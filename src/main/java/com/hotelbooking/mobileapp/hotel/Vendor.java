@@ -1,8 +1,8 @@
 package com.hotelbooking.mobileapp.hotel;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Instant;
 
@@ -15,25 +15,32 @@ import java.time.Instant;
 @Table(name = "vendor_login")
 public class Vendor {
 
-
     @Id
-    @Column(name = "vendor_id", nullable = false, length = 14)
+    @Column(name = "vendor_id", length = 14)
     private String vendorId;
 
-    @Column(name = "full_name", nullable = false, length = 50)
+    @NotBlank(message = "Full name is required")
+    @Size(min = 3, max = 50)
+    @Column(name = "full_name", length = 50, nullable = false)
     private String fullName;
 
-    @Column(name = "business_name", nullable = false, length = 50)
+    @NotBlank(message = "Business name is required")
+    @Size(max = 50)
+    @Column(name = "business_name", length = 50, nullable = false)
     private String businessName;
 
-    @Column(name = "phone", nullable = false, length = 20, unique = true)
+    @NotBlank(message = "Phone number is required")
+    @Column(name = "phone", nullable = false, unique = true, length = 15)
     private String phone;
 
-    @Column(name = "email", nullable = false, length = 50, unique = true)
+    @Email(message = "Invalid email format")
+    @Column(name = "email", length = 50, unique = true)
     private String email;
 
-    @Column(name = "password", length = 255)
-    private String password; // BCrypt hashed
+    @NotBlank(message = "Password is required")
+    @Size(min = 8, max = 100)
+    @Column(name = "password", length = 100, nullable = false)
+    private String password; // BCrypt hashed password
 
     @Column(name = "status", length = 20)
     private String status;
@@ -48,6 +55,7 @@ public class Vendor {
     protected void onCreate() {
         createdAt = Instant.now();
         updatedAt = Instant.now();
+
         if (status == null) {
             status = "ACTIVE";
         }

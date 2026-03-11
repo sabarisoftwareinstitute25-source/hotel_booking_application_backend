@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class TwoStarHotelProfileDTO {
+public class ThreeStarHotelProfileDTO {
 
     private String hotelId;
     private String propertyType;
@@ -21,13 +21,14 @@ public class TwoStarHotelProfileDTO {
     private String hotelType;
     private Integer yearOfEstablishment;
     private Integer totalRooms;
+    private String registrationNumber;
     private String ownerName;
     private String designation;
     private String mobileNumber;
     private String alternateContact;
     private String email;
     private String website;
-    private String profilePhoto;
+    private List<String> personPhotoInfo = new ArrayList<>();
     private String addressLine1;
     private String addressLine2;
     private Boolean isPrimary = true;
@@ -38,57 +39,61 @@ public class TwoStarHotelProfileDTO {
     private String pinCode;
     private List<String> selectedRoomTypes = new ArrayList<>();
 
-    // Single Room Details
-    private Integer singleNumberOfRooms;
-    private Integer singleMaxOccupancy;
-    private Double singlePricePerNight;
-    private String singleAcOrNonAc;
+    //====Standard=====
+    private Integer standardNumberOfRooms;
+    private Integer standardMaxOccupancy;
+    private Boolean standardAc;
+    private String standardBedType;
+    private Double standardPricePerDay;
 
-    // Double Room Details
-    private Integer doubleNumberOfRooms;
-    private Integer doubleMaxOccupancy;
-    private Double doublePricePerNight;
-    private String doubleAcOrNonAc;
-
-    // Deluxe Room Details
+    //======Deluxe========
     private Integer deluxeNumberOfRooms;
     private Integer deluxeMaxOccupancy;
-    private Double deluxePricePerNight;
-    private String deluxeAcOrNonAc;
+    private Boolean deluxeAc;
+    private String deluxeBedType;
+    private Double deluxePricePerDay;
 
-    private Boolean extraBedFacility;
-    private Double minPricePerDay;
-    private Double maxPricePerDay;
+    //======Suite======
+    private Integer suiteNumberOfRooms;
+    private Integer suiteMaxOccupancy;
+    private Boolean suiteAc;
+    private String suiteBedType;
+    private Double suitePricePerDay;
+
+    private Boolean extraBedAvailable;
+    private Boolean seasonalPricing;
     private List<String> roomAmenities = new ArrayList<>();
     private List<String> hotelFacilities = new ArrayList<>();
     private List<String> foodBeverage = new ArrayList<>();
     private List<String> guestService = new ArrayList<>();
     private LocalTime standardCheckInTime;
     private LocalTime standardCheckOutTime;
-    private Boolean coupleFriendly;
-    private String idProofRequired;
+    private List<String> earlyCheckInLateCheckOut = new ArrayList<>();
     private Boolean petsAllowed;
     private String gstNumber;
     private String fssaiLicenseNumber;
     private String tradeLicenseNumber;
     private String panNumber;
+    private Boolean fireSafety;
     private String accountHolderName;
     private String bankName;
     private Integer accountNumber;
     private String ifscCode;
     private String branch;
     private String accountType;
-    // Documents to be Submitted
+    // Document Required
     private String gstCertificate;
+    private String panCard;
     private String tradeLicense;
     private String fssaiCertificate;
+    private String fireSafetyCertificate;
     private String cancelledCheque;
-    private String hotelRegistrationCertificate;
-    private String roomPropertyPhoto;
+    private String hotelRoomPhotos;
     private Map<String, Map<String, Object>> uploadedFiles = new HashMap<>();
     private Boolean declarationAccepted = false;
     private String signatureImage;
     private String uploadSignature;
-    private String declarationName;
     private LocalDateTime declarationDate;
+    private String signatoryName;
+    private LocalDate Date;
 }

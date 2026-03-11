@@ -1,6 +1,7 @@
 package com.hotelbooking.mobileapp.user;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -18,40 +19,38 @@ public class UserAccount {
     @Column(nullable = false, length = 50)
     private String userId;
 
-    @NotBlank
-    @Size(max = 100)
-    @Column(nullable = false, length = 100)
+    @NotBlank(message = "Full name is required")
+    @Size(min = 3, max = 50)
+    @Column(name = "full_name", length = 50, nullable = false)
     private String fullName;
 
-    @NotBlank
-    @Size(max = 100)
-    @Column(nullable = false, length = 100, unique = true)
+    @Email(message = "Invalid email format")
+    @Column(name = "email", length = 50, unique = true)
     private String email;
 
-    @Size(max = 20)
-    @Column(length = 20, unique = true)
+    @NotBlank(message = "Mobile number is required")
+    @Column(name = "mobile", nullable = false, unique = true, length = 15)
     private String mobile;
 
+    @NotBlank(message = "Address is required")
+    @Column(name = "address", nullable = false)
     private String address;
 
-    @NotBlank
-    @Size(max = 50)
-    @Column(nullable = false, length = 50)
+    @NotBlank(message = "City is required")
     private String city;
 
-    @NotBlank
-    @Size(max = 50)
-    @Column(nullable = false, length = 50)
+    @NotBlank(message = "District is required")
+    private String district;
+
+    @NotBlank(message = "State is required")
     private String state;
 
-    @NotBlank
-    @Size(max = 50)
-    @Column(nullable = false, length = 50)
+    @NotBlank(message = "Country is required")
     private String country;
 
     @NotBlank(message = "Password is required")
-    @Size(min = 6, message = "Password must be at least 6 characters")
-    @Column(nullable = false)
+    @Size(min = 8, max = 100)
+    @Column(name = "password", length = 100, nullable = false)
     private String password;
 
     @Column(nullable = false)

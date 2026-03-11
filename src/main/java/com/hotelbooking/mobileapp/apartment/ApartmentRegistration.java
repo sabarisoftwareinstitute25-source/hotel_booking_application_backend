@@ -33,8 +33,8 @@ public class ApartmentRegistration {
     @JoinColumn(name = "vendor_id")
     private Vendor vendor;
 
-    @Column(name = "property_type", length = 50)
-    private String propertyType;
+    @Column(nullable = false, length = 50)
+    private String propertyType = "Apartment";
 
     // Basic Contact Information
     private String apartmentName;
@@ -168,6 +168,11 @@ public class ApartmentRegistration {
             this.apartmentId =
                     BeanUtil.getBean(IdGeneratorService.class)
                             .generateMonthlyId("EIHA", 4, existingIds);
+        }
+
+        // Auto set property type if null
+        if (this.propertyType == null || this.propertyType.isBlank()) {
+            this.propertyType = "Apartment";
         }
 
         this.createdAt = Instant.now();
