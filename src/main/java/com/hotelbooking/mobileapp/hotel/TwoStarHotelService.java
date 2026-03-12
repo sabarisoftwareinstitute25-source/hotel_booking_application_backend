@@ -45,7 +45,7 @@ public class TwoStarHotelService {
 
         // Property
         dto.setHotelId(hotel.getHotelId());
-        dto.setPropertyType(hotel.getPropertyType());
+        dto.setHotelCategory(hotel.getHotelCategory());
         dto.setHotelName(hotel.getHotelName());
         dto.setHotelType(hotel.getHotelType());
         dto.setYearOfEstablishment(hotel.getYearOfEstablishment());
@@ -129,11 +129,6 @@ public class TwoStarHotelService {
 
         dto.setUploadedFiles(hotel.getUploadedFiles());
 
-        dto.setDeclarationAccepted(hotel.getDeclarationAccepted());
-        dto.setSignatureImage(hotel.getSignatureImage());
-        dto.setUploadSignature(hotel.getUploadSignature());
-        dto.setDeclarationName(hotel.getDeclarationName());
-        dto.setDeclarationDate(hotel.getDeclarationDate());
 
         return dto;
     }

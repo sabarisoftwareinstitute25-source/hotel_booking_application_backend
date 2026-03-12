@@ -38,6 +38,7 @@ public class FourStarHotelService {
         FourStarHotelProfileDTO dto = new FourStarHotelProfileDTO();
 
         dto.setHotelName(hotel.getHotelName());
+        dto.setHotelCategory(hotel.getHotelCategory());
         dto.setHotelType(hotel.getHotelType());
         dto.setYearOfEstablishment(hotel.getYearOfEstablishment());
         dto.setTotalRooms(hotel.getTotalRooms());
@@ -82,10 +83,6 @@ public class FourStarHotelService {
         dto.setBranch(hotel.getBranch());
         dto.setAccountType(hotel.getAccountType());
 
-        dto.setDeclarationAccepted(hotel.getDeclarationAccepted());
-        dto.setSignatureImage(hotel.getSignatureImage());
-        dto.setUploadSignature(hotel.getUploadSignature());
-        dto.setSignatoryName(hotel.getSignatoryName());
 
         return dto;
     }

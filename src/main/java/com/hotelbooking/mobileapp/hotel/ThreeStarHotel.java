@@ -38,6 +38,8 @@ public class ThreeStarHotel {
     @Column(nullable = false, length = 50)
     private String propertyType = "Hotel";
 
+    private String hotelCategory = "Three-Star Hotel";
+
     // Step 1: Hotel Info
     @NotBlank(message = "Hotel name is required")
     @Size(max = 50, message = "Hotel name must not exceed 50 characters")
@@ -170,18 +172,10 @@ public class ThreeStarHotel {
     private Boolean petsAllowed;
 
     // Legal
-    @Size(max = 30, message = "Invalid GST number length")
     private String gstNumber;
-
-    @Size(max = 30, message = "Invalid FSSAI license number length")
     private String fssaiLicenseNumber;
-
-    @Size(max = 30, message = "Invalid trade license number")
     private String tradeLicenseNumber;
-
-    @Column(length = 10)
     private String panNumber;
-
     private Boolean fireSafety;
 
     // Bank Details
@@ -224,8 +218,6 @@ public class ThreeStarHotel {
 
     private String uploadSignature;
 
-    private LocalDateTime declarationDate;
-
     private String signatoryName;
 
     @Column(nullable = false, updatable = false)
@@ -250,6 +242,11 @@ public class ThreeStarHotel {
         // Auto set property type if null
         if (this.propertyType == null || this.propertyType.isBlank()) {
             this.propertyType = "Hotel";
+        }
+
+        // Auto set hotel category if null
+        if (this.hotelCategory == null || this.hotelCategory.isBlank()) {
+            this.hotelCategory = "Three-Star Hotel";
         }
 
         if (this.createdAt == null) {

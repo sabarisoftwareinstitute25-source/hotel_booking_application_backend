@@ -37,6 +37,8 @@ public class FourStarHotel {
     @Column(nullable = false, length = 50)
     private String propertyType = "Hotel";
 
+    private String hotelCategory = "Four-Star Hotel";
+
     @NotBlank(message = "Hotel name is required")
     @Size(max = 50, message = "Hotel name must not exceed 50 characters")
     @Column(length = 50)
@@ -178,18 +180,10 @@ public class FourStarHotel {
     private Boolean petsAllowed;
 
     // Legal
-    @Size(max = 30, message = "Invalid GST number length")
     private String gstNumber;
-
-    @Size(max = 30, message = "Invalid FSSAI license number length")
     private String fssaiLicenseNumber;
-
-    @Size(max = 30, message = "Invalid trade license number")
     private String tradeLicenseNumber;
-
-    @Column(length = 10)
     private String panNumber;
-
     private Boolean fireSafety;
     private Boolean starCertification;
 
@@ -236,8 +230,6 @@ public class FourStarHotel {
 
     private String signatoryName;
 
-    private LocalDateTime Date;
-
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
@@ -260,6 +252,11 @@ public class FourStarHotel {
         // Auto set property type if null
         if (this.propertyType == null || this.propertyType.isBlank()) {
             this.propertyType = "Hotel";
+        }
+
+        // Auto set hotel category if null
+        if (this.hotelCategory == null || this.hotelCategory.isBlank()) {
+            this.hotelCategory = "Four-Star Hotel";
         }
 
         if (this.createdAt == null) {

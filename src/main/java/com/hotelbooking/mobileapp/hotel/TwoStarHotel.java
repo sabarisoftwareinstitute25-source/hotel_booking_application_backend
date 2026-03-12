@@ -34,6 +34,8 @@ public class TwoStarHotel {
     @Column(nullable = false, length = 50)
     private String propertyType = "Hotel";
 
+    private String hotelCategory = "Two-Star Hotel";
+
     @NotBlank(message = "Hotel name is required")
     @Size(max = 50, message = "Hotel name must not exceed 50 characters")
     @Column(length = 50)
@@ -168,17 +170,12 @@ public class TwoStarHotel {
     private Boolean petsAllowed;
 
     // Step 7: Legal & Bank
-    @Size(max = 30, message = "Invalid GST number length")
     private String gstNumber;
 
-
-    @Size(max = 30, message = "Invalid FSSAI license number length")
     private String fssaiLicenseNumber;
 
-    @Size(max = 30, message = "Invalid trade license number")
     private String tradeLicenseNumber;
 
-    @Column(length = 10)
     private String panNumber;
 
     @NotBlank(message = "Account holder name is required")
@@ -221,8 +218,6 @@ public class TwoStarHotel {
 
     private String declarationName;
 
-    private LocalDateTime declarationDate;
-
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
@@ -246,6 +241,11 @@ public class TwoStarHotel {
         // Auto set property type if null
         if (this.propertyType == null || this.propertyType.isBlank()) {
             this.propertyType = "Hotel";
+        }
+
+        // Auto set hotel category if null
+        if (this.hotelCategory == null || this.hotelCategory.isBlank()) {
+            this.hotelCategory = "Two-Star Hotel";
         }
 
         if (this.createdAt == null) {

@@ -1,5 +1,6 @@
 package com.hotelbooking.mobileapp.hotel;
 
+import com.hotelbooking.mobileapp.dto.FiveStarHotelProfileDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,5 +36,10 @@ public class FiveStarHotelController {
     public ResponseEntity<Void> deleteHotel(@PathVariable String hotelId) {
         service.deleteHotel(hotelId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/profile/{hotelId}")
+    public FiveStarHotelProfileDTO getHotelProfile(@PathVariable String hotelId) {
+        return service.getHotelProfile(hotelId);
     }
 }

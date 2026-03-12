@@ -3,7 +3,6 @@ package com.hotelbooking.mobileapp.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +14,7 @@ public class NormalHotelProfileDTO {
 
     private String hotelId;
 
-    private String propertyType;
+    private String hotelCategory;
 
     private String hotelName;
 
@@ -61,6 +60,7 @@ public class NormalHotelProfileDTO {
     private Double singlePricePerNight;
     private String singleAcOrNonAc;
     private Boolean singleExtraBedAvailable;
+    private Double singleExtraBedPrice;
 
     // Double Room Details
     private Integer doubleNumberOfRooms;
@@ -68,6 +68,7 @@ public class NormalHotelProfileDTO {
     private Double doublePricePerNight;
     private String doubleAcOrNonAc;
     private Boolean doubleExtraBedAvailable;
+    private Double doubleExtraBedPrice;
 
     // Deluxe Room Details
     private Integer deluxeNumberOfRooms;
@@ -75,6 +76,7 @@ public class NormalHotelProfileDTO {
     private Double deluxePricePerNight;
     private String deluxeAcOrNonAc;
     private Boolean deluxeExtraBedAvailable;
+    private Double deluxeExtraBedPrice;
 
     // Suite Room Details
     private Integer suiteNumberOfRooms;
@@ -82,6 +84,7 @@ public class NormalHotelProfileDTO {
     private Double suitePricePerNight;
     private String suiteAcOrNonAc;
     private Boolean suiteExtraBedAvailable;
+    private Double suiteExtraBedPrice;
 
     // Family Room Details
     private Integer familyNumberOfRooms;
@@ -89,6 +92,7 @@ public class NormalHotelProfileDTO {
     private Double familyPricePerNight;
     private String familyAcOrNonAc;
     private Boolean familyExtraBedAvailable;
+    private Double familyExtraBedPrice;
 
     // Executive Room Details
     private Integer executiveNumberOfRooms;
@@ -96,6 +100,7 @@ public class NormalHotelProfileDTO {
     private Double executivePricePerNight;
     private String executiveAcOrNonAc;
     private Boolean executiveExtraBedAvailable;
+    private Double executiveExtraBedPrice;
 
     private Double minTariff;
 
@@ -141,12 +146,12 @@ public class NormalHotelProfileDTO {
 
     private Map<String, Map<String, Object>> uploadedFiles = new HashMap<>();
 
-    private Boolean declarationAccepted = false;
-
-    private String signatureImage;
-
-    private String uploadSignature;
-
-    private String declarationName;
-    private LocalDateTime declarationDate;
+//    private Boolean declarationAccepted = false;
+//
+//    private String signatureImage;
+//
+//    private String uploadSignature;
+//
+//    private String declarationName;
+//    private LocalDateTime date;
 }

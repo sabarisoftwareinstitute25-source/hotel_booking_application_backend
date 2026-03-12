@@ -32,6 +32,8 @@ public class HotelVendor {
     // Property
     private String propertyType = "Hotel";
 
+    private String hotelCategory = "Normal Hotel";
+
     @NotBlank(message = "Hotel name is required")
     @Size(max = 50, message = "Hotel name must not exceed 50 characters")
     @Column(length = 50)
@@ -111,6 +113,7 @@ public class HotelVendor {
     private Double singlePricePerNight;
     private String singleAcOrNonAc;
     private Boolean singleExtraBedAvailable;
+    private Double singleExtraBedPrice;
 
     // Double Room Details
     @Positive
@@ -119,6 +122,7 @@ public class HotelVendor {
     private Double doublePricePerNight;
     private String doubleAcOrNonAc;
     private Boolean doubleExtraBedAvailable;
+    private Double doubleExtraBedPrice;
 
     // Deluxe Room Details
     @Positive
@@ -127,6 +131,7 @@ public class HotelVendor {
     private Double deluxePricePerNight;
     private String deluxeAcOrNonAc;
     private Boolean deluxeExtraBedAvailable;
+    private Double deluxeExtraBedPrice;
 
     // Suite Room Detail
     @Positive
@@ -135,6 +140,7 @@ public class HotelVendor {
     private Double suitePricePerNight;
     private String suiteAcOrNonAc;
     private Boolean suiteExtraBedAvailable;
+    private Double suiteExtraBedPrice;
 
     // Family Room Details
     @Positive
@@ -143,6 +149,7 @@ public class HotelVendor {
     private Double familyPricePerNight;
     private String familyAcOrNonAc;
     private Boolean familyExtraBedAvailable;
+    private Double familyExtraBedPrice;
 
     // Executive Room Details
     @Positive
@@ -151,6 +158,7 @@ public class HotelVendor {
     private Double executivePricePerNight;
     private String executiveAcOrNonAc;
     private Boolean executiveExtraBedAvailable;
+    private Double executiveExtraBedPrice;
 
     @Positive(message = "Minimum tariff must be positive")
     private Double minTariff;
@@ -182,16 +190,12 @@ public class HotelVendor {
     private List<String> customAmenities = new ArrayList<>();
 
     // Legal
-    @Size(max = 30, message = "Invalid GST number length")
     private String gstNumber;
 
-    @Size(max = 30, message = "Invalid FSSAI license number length")
     private String fssaiLicenseNumber;
 
-    @Size(max = 30, message = "Invalid trade license number")
     private String tradeLicenseNumber;
 
-    @Size(max = 20, message = "Invalid ID number")
     private String aadhaarNumber;
 
     // Bank
@@ -234,8 +238,6 @@ public class HotelVendor {
     private String uploadSignature;
 
     private String declarationName;
-    private LocalDateTime declarationDate;
-
 
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
@@ -259,6 +261,11 @@ public class HotelVendor {
         // Auto set property type if null
         if (this.propertyType == null || this.propertyType.isBlank()) {
             this.propertyType = "Hotel";
+        }
+
+        // Auto set Hotel Category if null
+        if (this.hotelCategory == null || this.hotelCategory.isBlank()) {
+            this.hotelCategory = "Normal Hotel";
         }
 
         if (this.createdAt == null) {

@@ -45,7 +45,7 @@ public class ThreeStarHotelService {
 
         // Property Info
         dto.setHotelId(hotel.getHotelId());
-        dto.setPropertyType(hotel.getPropertyType());
+        dto.setHotelCategory(hotel.getHotelCategory());
         dto.setHotelName(hotel.getHotelName());
         dto.setHotelType(hotel.getHotelType());
         dto.setYearOfEstablishment(hotel.getYearOfEstablishment());
@@ -133,12 +133,6 @@ public class ThreeStarHotelService {
         dto.setHotelRoomPhotos(hotel.getHotelRoomPhotos());
         dto.setUploadedFiles(hotel.getUploadedFiles());
 
-        // Declaration
-        dto.setDeclarationAccepted(hotel.getDeclarationAccepted());
-        dto.setSignatureImage(hotel.getSignatureImage());
-        dto.setUploadSignature(hotel.getUploadSignature());
-        dto.setDeclarationDate(hotel.getDeclarationDate());
-        dto.setSignatoryName(hotel.getSignatoryName());
 
         return dto;
     }

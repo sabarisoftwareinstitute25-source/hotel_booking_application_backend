@@ -4,13 +4,17 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hotelbooking.mobileapp.util.BeanUtil;
 import com.hotelbooking.mobileapp.util.IdGeneratorService;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.hibernate.validator.constraints.URL;
+import org.springframework.security.core.parameters.P;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,24 +38,30 @@ public class FiveStarHotel {
     @Column(nullable = false, length = 50)
     private String propertyType = "Hotel";
 
+    private String hotelCategory = "Five-Star Hotel";
+
     // Hotel Info
-    @Column(name = "hotel_name", nullable = false, length = 150)
+    @NotBlank(message = "Hotel name is required")
+    @Size(max = 50, message = "Hotel name must not exceed 50 characters")
+    @Column(length = 50)
     private String hotelName;
 
-    @Column(name = "hotel_type", length = 50)
+    @Column(name = "hotel_type")
     private String hotelType;
 
     @Column(name = "year_of_establishment", length = 4)
     private Integer yearOfEstablishment;
 
-    @Column(name = "total_rooms", length = 10)
+    @Positive(message = "Total rooms must be positive")
+    @Column(name = "total_rooms")
     private Integer totalRooms;
 
     @Column(name = "star_classification_no", length = 50)
     private String starClassificationNo;
 
     // Address
-    @Column(name = "address_line1", nullable = false, length = 250)
+    @NotBlank(message = "Address Line 1 is required")
+    @Column(name = "address_line1", nullable = false)
     private String addressLine1;
 
     @Column(name = "address_line2", length = 250)
@@ -60,35 +70,42 @@ public class FiveStarHotel {
     @Column(nullable = false)
     private Boolean isPrimary = true;
 
-    @Column(length = 100)
+    @NotBlank(message = "City is required")
     private String city;
 
-    @Column(length = 100)
+    @NotBlank(message = "District is required")
     private String district;
 
-    @Column(length = 100)
+    @NotBlank(message = "State is required")
     private String state;
 
-    @Column(name = "pin_code", length = 10)
+    @NotBlank(message = "Country is required")
+    private String country;
+
+    @NotBlank(message = "Pin code is required")
+    @Size(min = 3, max = 10, message = "Invalid pin code")
+    @Column(name = "pin_code", nullable = false)
     private String pinCode;
 
     // Owner
-    @Column(name = "owner_name", length = 150)
+    @NotBlank(message = "Owner name is required")
+    @Size(min = 3, max = 50)
     private String ownerName;
 
     @Column(length = 100)
     private String designation;
 
-    @Column(name = "mobile_number", length = 20)
+    @NotBlank(message = "Mobile number is required")
+    @Column(nullable = false, length = 15)
     private String mobileNumber;
 
-    @Column(name = "alternate_contact", length = 20)
     private String alternateContact;
 
-    @Column(nullable = false)
+    @Email(message = "Invalid email format")
+    @Column(name = "email", length = 50)
     private String email;
 
-    @Column(length = 200)
+    @URL(message = "Invalid URL")
     private String website;
 
     private String profilePhoto;
@@ -99,6 +116,7 @@ public class FiveStarHotel {
     private List<String> selectedRoomTypes = new ArrayList<>();
 
     // Deluxe Room
+    @Positive
     private Integer deluxeNoOfUnits;
     private Integer deluxeMaxOccupancy;
     private Boolean deluxeClimateControl;
@@ -107,6 +125,7 @@ public class FiveStarHotel {
     private Double deluxeMaxPricePerDay;
 
     // Club Room
+    @Positive
     private Integer clubNoOfUnits;
     private Integer clubMaxOccupancy;
     private Boolean clubClimateControl;
@@ -115,6 +134,7 @@ public class FiveStarHotel {
     private Double clubMaxPricePerDay;
 
     // Executive Room
+    @Positive
     private Integer executiveNoOfUnits;
     private Integer executiveMaxOccupancy;
     private Boolean executiveClimateControl;
@@ -123,6 +143,7 @@ public class FiveStarHotel {
     private Double executiveMaxPricePerDay;
 
     // Suite Room
+    @Positive
     private Integer suiteNoOfUnits;
     private Integer suiteMaxOccupancy;
     private Boolean suiteClimateControl;
@@ -131,6 +152,7 @@ public class FiveStarHotel {
     private Double suiteMaxPricePerDay;
 
     // Presidential Suite
+    @Positive
     private Integer presidentialNoOfUnits;
     private Integer presidentialMaxOccupancy;
     private Boolean presidentialClimateControl;
@@ -169,20 +191,16 @@ public class FiveStarHotel {
     @Column(nullable = false)
     private LocalTime standardCheckOutTime;
 
-    private String earlyCheckInLateCheckout;
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "early_checkIn_late_checkOut", columnDefinition = "jsonb")
+    private List<String> earlyCheckInLateCheckOut = new ArrayList<>();
+
     private Boolean petsAllowed;
 
     // Legal
-    @Column(length = 50)
     private String gstNumber;
-
-    @Column(length = 50)
     private String panNumber;
-
-    @Column(length = 50)
     private String tradeLicenseNumber;
-
-    @Column(length = 50)
     private String fssaiLicenseNumber;
 
     @JdbcTypeCode(SqlTypes.JSON)
@@ -190,21 +208,21 @@ public class FiveStarHotel {
     private List<String> compliance = new ArrayList<>();
 
     // Bank
-    @Column(length = 150)
+    @NotBlank(message = "Account holder name is required")
     private String accountHolderName;
 
-    @Column(length = 150)
+    @NotBlank(message = "Bank name is required")
     private String bankName;
 
-    @Column(length = 30)
-    private String accountNumber;
+    @NotNull(message = "Account number is required")
+    private Integer accountNumber;
 
-    @Column(length = 20)
+    @NotBlank(message = "IFSC code is required")
     private String ifscCode;
 
-    @Column(length = 100)
     private String branch;
 
+    @NotBlank(message = "Account type is required")
     private String accountType;
 
     // Documents
@@ -233,8 +251,6 @@ public class FiveStarHotel {
 
     private String signatoryName;
 
-    private LocalDate date;
-
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
@@ -258,6 +274,11 @@ public class FiveStarHotel {
         // Auto set property type if null
         if (this.propertyType == null || this.propertyType.isBlank()) {
             this.propertyType = "Hotel";
+        }
+
+        // Auto set hotel category if null
+        if (this.hotelCategory == null || this.hotelCategory.isBlank()) {
+            this.hotelCategory = "Five-Star Hotel";
         }
 
         if (this.createdAt == null) {
