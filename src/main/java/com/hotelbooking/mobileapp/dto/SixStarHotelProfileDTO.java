@@ -2,6 +2,7 @@ package com.hotelbooking.mobileapp.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class FiveStarHotelProfileDTO {
+public class SixStarHotelProfileDTO {
 
     private String hotelId;
 
@@ -23,8 +24,25 @@ public class FiveStarHotelProfileDTO {
 
     private Integer totalRooms;
 
-    private String starClassificationNo;
+    private String nationalRecognition;
 
+    private String ownerName;
+
+    private String designation;
+
+    private String managerName;
+
+    private String mobileNumber;
+
+    private String alternateContact;
+
+    private String email;
+
+    private String website;
+
+    private String profilePhoto;
+
+    // Address
     private String addressLine1;
 
     private String addressLine2;
@@ -41,83 +59,64 @@ public class FiveStarHotelProfileDTO {
 
     private String pinCode;
 
-    private String ownerName;
-
-    private String designation;
-
-    private String mobileNumber;
-
-    private String alternateContact;
-
-    private String email;
-
-    private String website;
-
-    private String profilePhoto;
-
+    // Room Configuration
     private List<String> selectedRoomTypes = new ArrayList<>();
 
-    // Deluxe Room
-    private Integer deluxeNoOfUnits;
-    private Integer deluxeMaxOccupancy;
-    private Boolean deluxeClimateControl;
-    private String deluxeBedType;
-    private Double deluxeMinPricePerDay;
-    private Double deluxeMaxPricePerDay;
+    // Accommodation
+    private Integer luxuryUnits;
+    private Integer luxuryMaxOccupancy;
+    private String luxuryBedType;
+    private Double luxuryPriceFrom;
+    private Double luxuryPriceTo;
 
-    // Club Room
-    private Integer clubNoOfUnits;
+    private Integer clubUnits;
     private Integer clubMaxOccupancy;
-    private Boolean clubClimateControl;
     private String clubBedType;
-    private Double clubMinPricePerDay;
-    private Double clubMaxPricePerDay;
+    private Double clubPriceFrom;
+    private Double clubPriceTo;
 
-    // Executive Room
-    private Integer executiveNoOfUnits;
+    private Integer executiveUnits;
     private Integer executiveMaxOccupancy;
-    private Boolean executiveClimateControl;
     private String executiveBedType;
-    private Double executiveMinPricePerDay;
-    private Double executiveMaxPricePerDay;
+    private Double executivePriceFrom;
+    private Double executivePriceTo;
 
-    // Suite Room
-    private Integer suiteNoOfUnits;
-    private Integer suiteMaxOccupancy;
-    private Boolean suiteClimateControl;
-    private String suiteBedType;
-    private Double suiteMinPricePerDay;
-    private Double suiteMaxPricePerDay;
-
-    // Presidential Suite
-    private Integer presidentialNoOfUnits;
+    private Integer presidentialUnits;
     private Integer presidentialMaxOccupancy;
-    private Boolean presidentialClimateControl;
     private String presidentialBedType;
-    private Double presidentialMinPricePerDay;
-    private Double presidentialMaxPricePerDay;
+    private Double presidentialPriceFrom;
+    private Double presidentialPriceTo;
 
-    private Boolean extraBedAvailable;
+    private Integer villaUnits;
+    private Integer villaMaxOccupancy;
+    private String villaBedType;
+    private Double villaPriceFrom;
+    private Double villaPriceTo;
 
-    private Boolean seasonalPricing;
+    private Boolean personalButlerService;
+    private Boolean dynamicPricingEnabled;
 
+    // Amenities
     private List<String> roomAmenities = new ArrayList<>();
 
-    private List<String> hotelService = new ArrayList<>();
+    private List<String> eliteServices = new ArrayList<>();
 
     private List<String> diningAndEvent = new ArrayList<>();
 
     private List<String> wellnessAndLeisure = new ArrayList<>();
 
-    private List<String> guestService = new ArrayList<>();
+    private List<String> guestPrivileges = new ArrayList<>();
 
+    // Check-in
     private LocalTime standardCheckInTime;
 
     private LocalTime standardCheckOutTime;
 
     private String earlyCheckInLateCheckOut;
 
-    private Boolean petsAllowed;
+    private Boolean diplomaticProtocols;
+
+    private Boolean petService;
 
     // Legal
     private String gstNumber;
@@ -143,25 +142,26 @@ public class FiveStarHotelProfileDTO {
 
     private String accountType;
 
-    // Documents
+    // Documents Required
     private String gstCertificate;
 
     private String panCard;
 
     private String tradeLicense;
 
-    private String fssaiCertificate;
+    private String fssaiLicense;
 
-    private String fireSafetyNoc;
+    private String fireSafety;
 
-    private String starCertification;
+    private String environmentalCertificate;
 
-    private String pollutionControlCertificate;
+    private String internationalSafety;
+
+    private String luxuryBrand;
 
     private String cancelledCheque;
 
-    private String property;
+    private String highResolutionProperty;
 
     private Map<String, Map<String, Object>> uploadedFiles;
-
 }

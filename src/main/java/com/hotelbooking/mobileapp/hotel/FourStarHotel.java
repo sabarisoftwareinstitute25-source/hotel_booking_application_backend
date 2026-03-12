@@ -173,9 +173,7 @@ public class FourStarHotel {
     @Column(nullable = false)
     private LocalTime standardCheckOutTime;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "early_checkIn_late_checkOut", columnDefinition = "jsonb")
-    private List<String> earlyCheckInLateCheckOut = new ArrayList<>();
+    private String earlyCheckInLateCheckOut;
 
     private Boolean petsAllowed;
 

@@ -96,7 +96,7 @@ public class ThreeStarHotelProfileDTO {
 
     private LocalTime standardCheckOutTime;
 
-    private List<String> earlyCheckInLateCheckOut = new ArrayList<>();
+    private String earlyCheckInLateCheckOut;
 
     private Boolean petsAllowed;
 

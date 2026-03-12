@@ -33,6 +33,8 @@ public class SevenStarHotel {
     @Column(nullable = false, length = 50)
     private String propertyType = "Hotel";
 
+    private String hotelCategory = "Seven-Star Hotel";
+
     // Step 1
     @Column(nullable = false)
     private String palaceName;
@@ -231,6 +233,11 @@ public class SevenStarHotel {
         // Auto set property type if null
         if (this.propertyType == null || this.propertyType.isBlank()) {
             this.propertyType = "Hotel";
+        }
+
+        // Auto set hotel category if null
+        if (this.hotelCategory == null || this.hotelCategory.isBlank()) {
+            this.hotelCategory = "Seven-Star Hotel";
         }
 
         if (this.createdAt == null) {

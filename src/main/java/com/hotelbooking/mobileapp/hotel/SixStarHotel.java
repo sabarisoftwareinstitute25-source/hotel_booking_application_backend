@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hotelbooking.mobileapp.util.BeanUtil;
 import com.hotelbooking.mobileapp.util.IdGeneratorService;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.hibernate.validator.constraints.URL;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -33,50 +35,58 @@ public class SixStarHotel {
 
     @Column(nullable = false, length = 50)
     private String propertyType = "Hotel";
+
+    private String hotelCategory = "Six-Star Hotel";
+
     // Hotel Info
-    @Column(name = "hotel_name", nullable = false, length = 150)
+    @NotBlank(message = "Hotel name is required")
+    @Size(max = 50, message = "Hotel name must not exceed 50 characters")
+    @Column(length = 50)
     private String hotelName;
 
-    @Column(length = 50)
+    @Column(name = "hotel_type")
     private String hotelType;
 
     @Column(name = "year_of_establishment", length = 4)
     private Integer yearOfEstablishment;
 
-    @Column(name = "total_rooms", length = 10)
+    @Positive(message = "Total rooms must be positive")
+    @Column(name = "total_rooms")
     private Integer totalRooms;
 
     @Column(name = "national_recognition", length = 150)
     private String nationalRecognition;
 
     // Owner
-    @Column(name = "owner_name", length = 150)
+    @NotBlank(message = "Owner name is required")
+    @Size(min = 3, max = 50)
     private String ownerName;
 
     @Column(length = 100)
     private String designation;
 
-    @Column(name = "manager_name", length = 150)
+    @NotBlank(message = "Manager name is required")
+    @Size(min = 3, max = 50)
     private String managerName;
 
-    @Column(name = "mobile_number", length = 20)
+    @NotBlank(message = "Mobile number is required")
+    @Column(nullable = false, length = 15)
     private String mobileNumber;
 
-    @Column(name = "alternate_contact", length = 20)
     private String alternateContact;
 
-    @Column(length = 150)
+    @Email(message = "Invalid email format")
+    @Column(name = "email", length = 50)
     private String email;
 
-    @Column(length = 200)
+    @URL(message = "Invalid URL")
     private String website;
 
-    @JdbcTypeCode(SqlTypes.JSON)
-    @Column(name = "person_photo_info", columnDefinition = "jsonb")
-    private List<String> personPhotoInfo = new ArrayList<>();
+    private String profilePhoto;
 
     // Address
-    @Column(name = "address_line1", nullable = false, length = 250)
+    @NotBlank(message = "Address Line 1 is required")
+    @Column(name = "address_line1", nullable = false)
     private String addressLine1;
 
     @Column(name = "address_line2", length = 250)
@@ -85,43 +95,58 @@ public class SixStarHotel {
     @Column(nullable = false)
     private Boolean isPrimary = true;
 
-    @Column(length = 100)
+    @NotBlank(message = "City is required")
     private String city;
 
-    @Column(length = 100)
+    @NotBlank(message = "District is required")
+    private String district;
+
+    @NotBlank(message = "State is required")
     private String state;
 
-    @Column(nullable = false)
+    @NotBlank(message = "Country is required")
     private String country;
 
-    @Column(name = "pin_code", length = 10)
+    @NotBlank(message = "Pin code is required")
+    @Size(min = 3, max = 10, message = "Invalid pin code")
+    @Column(name = "pin_code", nullable = false)
     private String pinCode;
 
+    // Room Configuration
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "selected_room_types", columnDefinition = "jsonb")
+    private List<String> selectedRoomTypes = new ArrayList<>();
+
     // Accommodation
+    @Positive
     private Integer luxuryUnits;
     private Integer luxuryMaxOccupancy;
     private String luxuryBedType;
     private Double luxuryPriceFrom;
     private Double luxuryPriceTo;
 
+    @Positive
     private Integer clubUnits;
     private Integer clubMaxOccupancy;
     private String clubBedType;
     private Double clubPriceFrom;
     private Double clubPriceTo;
 
+    @Positive
     private Integer executiveUnits;
     private Integer executiveMaxOccupancy;
     private String executiveBedType;
     private Double executivePriceFrom;
     private Double executivePriceTo;
 
+    @Positive
     private Integer presidentialUnits;
     private Integer presidentialMaxOccupancy;
     private String presidentialBedType;
     private Double presidentialPriceFrom;
     private Double presidentialPriceTo;
 
+    @Positive
     private Integer villaUnits;
     private Integer villaMaxOccupancy;
     private String villaBedType;
@@ -160,7 +185,9 @@ public class SixStarHotel {
     private LocalTime standardCheckOutTime;
 
     private String earlyCheckInLateCheckOut;
+
     private Boolean diplomaticProtocols;
+
     private Boolean petService;
 
     // Legal
@@ -181,21 +208,21 @@ public class SixStarHotel {
     private List<String> compliance = new ArrayList<>();
 
     // Bank
-    @Column(length = 150)
+    @NotBlank(message = "Account holder name is required")
     private String accountHolderName;
 
-    @Column(length = 150)
+    @NotBlank(message = "Bank name is required")
     private String bankName;
 
-    @Column(length = 30)
-    private String accountNumber;
+    @NotNull(message = "Account number is required")
+    private Integer accountNumber;
 
-    @Column(length = 20)
+    @NotBlank(message = "IFSC code is required")
     private String ifscCode;
 
-    @Column(length = 100)
     private String branch;
 
+    @NotBlank(message = "IFSC code is required")
     private String accountType;
 
     // Documents Required
@@ -223,13 +250,10 @@ public class SixStarHotel {
 
     private String signatoryName;
 
-    private LocalDate date;
-
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
     private Instant updatedAt;
-
 
 
     @PrePersist
@@ -249,6 +273,11 @@ public class SixStarHotel {
         // Auto set property type if null
         if (this.propertyType == null || this.propertyType.isBlank()) {
             this.propertyType = "Hotel";
+        }
+
+        // Auto set hotel category if null
+        if (this.hotelCategory == null || this.hotelCategory.isBlank()) {
+            this.hotelCategory = "Six-Star Hotel";
         }
 
         if (this.createdAt == null) {
