@@ -187,7 +187,7 @@ public class TwoStarHotel {
     @NotBlank(message = "Bank name is required")
     private String bankName;
 
-    @NotBlank(message = "Account number is required")
+    @NotNull(message = "Account number is required")
     private Integer accountNumber;
 
     @NotBlank(message = "IFSC code is required")

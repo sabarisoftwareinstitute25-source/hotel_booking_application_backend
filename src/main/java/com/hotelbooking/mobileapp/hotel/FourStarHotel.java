@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hotelbooking.mobileapp.util.BeanUtil;
 import com.hotelbooking.mobileapp.util.IdGeneratorService;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -16,6 +13,7 @@ import org.hibernate.validator.constraints.URL;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -202,7 +200,7 @@ public class FourStarHotel {
     @NotBlank(message = "Bank name is required")
     private String bankName;
 
-    @NotBlank(message = "Account number is required")
+    @NotNull(message = "Account number is required")
     private Integer accountNumber;
 
     @NotBlank(message = "IFSC code is required")
@@ -238,7 +236,7 @@ public class FourStarHotel {
 
     private String signatoryName;
 
-    private LocalDate Date;
+    private LocalDateTime Date;
 
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
