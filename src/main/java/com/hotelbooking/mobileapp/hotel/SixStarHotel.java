@@ -222,7 +222,7 @@ public class SixStarHotel {
 
     private String branch;
 
-    @NotBlank(message = "IFSC code is required")
+    @NotBlank(message = "Account Type is required")
     private String accountType;
 
     // Documents Required
